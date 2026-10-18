@@ -2067,10 +2067,15 @@
 
     window.map = map;
 
-    // Use CartoDB Dark Matter with retina {r} support (Highest reliability dark map)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      subdomains: 'abcd',
-      maxZoom: 19
+    // Dark Canvas Map Tiles (100% Free, Zero Watermarks, No API Key Required)
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 16,
+      attribution: 'Esri Dark Canvas'
+    }).addTo(map);
+
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 16,
+      opacity: 0.65
     }).addTo(map);
 
     // Multi-stage invalidation to guarantee full container render

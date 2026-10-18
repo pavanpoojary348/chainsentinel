@@ -51,9 +51,15 @@ class ActionExecutionRequest(BaseModel):
 @app.get("/dashboard")
 def get_dashboard():
     """Serves the live interactive ChainSentinel Supply Chain Command Center."""
-    html_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'index.html')
-    if os.path.exists(html_path):
-        return FileResponse(html_path)
+    candidates = [
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'index.html'),
+        os.path.join(os.getcwd(), 'src', 'static', 'index.html'),
+        os.path.join(os.getcwd(), 'static', 'index.html'),
+        os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'src', 'static', 'index.html'),
+    ]
+    for p in candidates:
+        if os.path.exists(p):
+            return FileResponse(p)
     return {"message": "Dashboard HTML not found", "docs": "/docs"}
 
 @app.get("/health")

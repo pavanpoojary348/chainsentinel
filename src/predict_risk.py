@@ -10,8 +10,18 @@ import numpy as np
 
 class DisruptionPredictor:
     def __init__(self, models_dir: str = None):
-        if models_dir is None:
-            models_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'models')
+        if models_dir is None or not os.path.exists(models_dir):
+            candidates = [
+                os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'models'),
+                os.path.join(os.getcwd(), 'models'),
+                os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'models'),
+            ]
+            for c in candidates:
+                if os.path.exists(c):
+                    models_dir = c
+                    break
+            if models_dir is None:
+                models_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'models')
             
         try:
             self.metadata = joblib.load(os.path.join(models_dir, 'metadata.joblib'))

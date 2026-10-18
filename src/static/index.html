@@ -391,6 +391,18 @@
       letter-spacing: -0.3px;
     }
 
+    .panel-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .panel-actions .btn {
+      white-space: nowrap;
+      margin: 0;
+    }
+
     /* ================= LEAFLET MAP STYLING (FIXES BLANK TILES) ================= */
     #map-wrapper {
       height: 420px;
@@ -1504,7 +1516,7 @@
             <button class="btn btn-simulate" id="btn-simulate" onclick="triggerSimulation()">
               ⚡ Simulate Slide 8 ($1.9M Disruption)
             </button>
-            <button class="btn btn-export-dossier" onclick="switchTab('incident')">
+            <button class="btn btn-simulate" style="background: rgba(0, 102, 255, 0.2); border-color: rgba(0, 102, 255, 0.5); color: #93c5fd;" onclick="switchTab('incident')">
               <span>🚨</span> View Incident
             </button>
           </div>

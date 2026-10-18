@@ -41,8 +41,8 @@ active_alerts: List[Dict[str, Any]] = []
 
 class ActionExecutionRequest(BaseModel):
     order_id: int
-    action_type: str = Field(example="SHIFT_SUPPLIER_VOLUME")
-    selected_recommendation: str = Field(example="Shift 60% of volume to Supplier B and reroute shipment 4471")
+    action_type: str = Field(json_schema_extra={"example": "SHIFT_SUPPLIER_VOLUME"})
+    selected_recommendation: str = Field(json_schema_extra={"example": "Shift 60% of volume to Supplier B and reroute shipment 4471"})
     operator_notes: Optional[str] = "Approved by Operations Lead via ChainSentinel Dashboard"
 
 # --- Endpoints ---
@@ -255,7 +255,7 @@ def generate_audit_report(order_id: int):
     }
 
 class CopilotChatRequest(BaseModel):
-    message: str = Field(example="Why was Supplier B chosen over air freight?")
+    message: str = Field(json_schema_extra={"example": "Why was Supplier B chosen over air freight?"})
     order_id: Optional[int] = 4471
     api_key: Optional[str] = None
 

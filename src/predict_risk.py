@@ -36,12 +36,35 @@ class DisruptionPredictor:
         try:
             self.reg = joblib.load(os.path.join(models_dir, 'duration_regressor.joblib'))
         except (ModuleNotFoundError, Exception) as e:
-            print(f"[DisruptionPredictor] Notice: Regressor load fallback triggered ({e}). Initializing fallback regressor...")
-            class FallbackRegressor:
-                def predict(self, X):
-                    n = X.shape[0] if hasattr(X, 'shape') else 1
-                    return np.array([[2.0, 3.0]] * n)
-            self.reg = FallbackRegressor()
+            self.reg = self._build_fallback_regressor(models_dir)
+
+    def _build_fallback_regressor(self, models_dir: str):
+        """Constructs a pure scikit-learn RandomForestRegressor without xgboost dependency."""
+        from sklearn.ensemble import RandomForestRegressor
+        from sklearn.multioutput import MultiOutputRegressor
+        try:
+            data_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'dataco_sample.csv')
+            if os.path.exists(data_path) and self.preprocessor is not None:
+                from data_pipeline import load_and_clean_data, prepare_features_and_targets
+                df = load_and_clean_data(data_path)
+                X_df, _, y_reg, _, cat_cols, num_cols = prepare_features_and_targets(df)
+                X_vec = self.preprocessor.transform(X_df[cat_cols + num_cols])
+                base_reg = RandomForestRegressor(n_estimators=40, max_depth=5, random_state=42)
+                reg = MultiOutputRegressor(base_reg)
+                reg.fit(X_vec, y_reg)
+                try:
+                    joblib.dump(reg, os.path.join(models_dir, 'duration_regressor.joblib'))
+                except Exception:
+                    pass
+                return reg
+        except Exception:
+            pass
+
+        class FallbackRegressor:
+            def predict(self, X):
+                n = X.shape[0] if hasattr(X, 'shape') else 1
+                return np.array([[2.0, 3.0]] * n)
+        return FallbackRegressor()
 
     def _build_fallback_classifier(self, models_dir: str):
         """Constructs and trains a pure scikit-learn RandomForestClassifier without xgboost dependency."""

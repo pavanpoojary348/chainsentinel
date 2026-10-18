@@ -30,7 +30,7 @@ You can access and interact with the **ChainSentinel Command Center** using any 
 ### ⚡ Method 1: Instant Live Public URL (No Setup Needed)
 If the live tunnel is running, you can access the full web application immediately from any smartphone, laptop, or browser worldwide:
 
-* **Live Dashboard URL:** [https://tired-lions-walk.loca.lt](https://tired-lions-walk.loca.lt)
+* **Live Dashboard URL:** [https://ninety-planets-follow.loca.lt](https://ninety-planets-follow.loca.lt)
 * **1-Second Unlock Code:** Enter Endpoint IP `103.167.211.189` and click **Submit**.
 * *(Once submitted, the entire interactive dashboard loads directly with live telemetry, maps, and AI copilot.)*
 

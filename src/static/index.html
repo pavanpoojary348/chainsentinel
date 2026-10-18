@@ -37,7 +37,7 @@
       font-family: var(--font-main);
       min-height: 100vh;
       overflow-x: hidden;
-      padding-bottom: 70px; /* Space for mobile bottom bar */
+      padding-bottom: 70px;
     }
 
     /* Top Sticky Header */
@@ -45,14 +45,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 28px;
+      padding: 12px 28px;
       border-bottom: 1px solid var(--border-color);
       background: rgba(10, 14, 23, 0.88);
       backdrop-filter: blur(14px);
       position: sticky;
       top: 0;
       z-index: 500;
-      gap: 16px;
+      gap: 14px;
     }
 
     .brand {
@@ -88,7 +88,7 @@
     }
 
     .brand span {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--text-muted);
       font-weight: 400;
       display: block;
@@ -180,6 +180,27 @@
       100% { transform: scale(0.95); opacity: 0.8; }
     }
 
+    .telum-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 102, 255, 0.12);
+      border: 1px solid rgba(0, 102, 255, 0.35);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: #93c5fd;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .telum-pill:hover {
+      background: rgba(0, 102, 255, 0.25);
+      border-color: var(--accent-cyan);
+      color: #fff;
+    }
+
     /* Mobile Bottom Navigation Bar */
     .mobile-bottom-nav {
       display: none;
@@ -226,10 +247,6 @@
       color: var(--accent-cyan);
     }
 
-    .mobile-nav-item.active .icon {
-      transform: translateY(-2px);
-    }
-
     .mobile-nav-badge {
       position: absolute;
       top: 6px;
@@ -247,36 +264,11 @@
       box-shadow: 0 0 8px rgba(255, 51, 102, 0.8);
     }
 
-    /* Mobile Emergency Triage Banner Pill */
-    #mobile-incident-pill {
-      display: none;
-      position: fixed;
-      top: 72px;
-      left: 14px;
-      right: 14px;
-      z-index: 450;
-      background: linear-gradient(135deg, rgba(255, 51, 102, 0.95), rgba(185, 28, 60, 0.95));
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(255, 51, 102, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      animation: slideDown 0.3s ease;
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
     /* Container & Layout */
     .container {
       max-width: 1440px;
       margin: 0 auto;
-      padding: 24px 28px;
+      padding: 20px 28px;
     }
 
     /* Top KPI Grid */
@@ -284,7 +276,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .kpi-card {
@@ -306,10 +298,8 @@
     .kpi-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
       background: var(--accent-blue);
     }
 
@@ -361,15 +351,15 @@
     /* Page Views Switching */
     .page-view {
       display: none;
-      animation: fadeIn 0.24s ease-out forwards;
     }
 
     .page-view.active {
       display: block;
+      animation: fadeIn 0.2s ease-out forwards;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -401,10 +391,43 @@
       letter-spacing: -0.3px;
     }
 
-    .panel-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    /* ================= LEAFLET MAP STYLING (FIXES BLANK TILES) ================= */
+    #map-wrapper {
+      height: 420px;
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      position: relative;
+      background: #060913;
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+    }
+
+    #route-map {
+      height: 420px !important;
+      width: 100% !important;
+      min-height: 420px !important;
+      background: #060913 !important;
+    }
+
+    .leaflet-container {
+      background: #060913 !important;
+      outline: none;
+      font-family: var(--font-main) !important;
+    }
+
+    .leaflet-popup-content-wrapper {
+      background: rgba(11, 18, 34, 0.95) !important;
+      color: #f1f5f9 !important;
+      border: 1px solid rgba(0, 216, 255, 0.4) !important;
+      border-radius: 10px !important;
+      backdrop-filter: blur(12px) !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .leaflet-popup-tip {
+      background: rgba(11, 18, 34, 0.95) !important;
     }
 
     /* Buttons */
@@ -502,6 +525,60 @@
       border: 1px solid var(--accent-green);
     }
 
+    /* Table Toolbar */
+    .table-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .search-input-box {
+      display: flex;
+      align-items: center;
+      background: rgba(14, 22, 38, 0.85);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 6px 12px;
+      gap: 8px;
+      flex: 1;
+      max-width: 320px;
+    }
+
+    .search-input-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 12.5px;
+      font-family: var(--font-main);
+      width: 100%;
+    }
+
+    .table-filter-pills {
+      display: flex;
+      gap: 6px;
+    }
+
+    .table-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .table-pill.active, .table-pill:hover {
+      background: rgba(0, 102, 255, 0.25);
+      border-color: var(--accent-blue);
+      color: #fff;
+    }
+
     /* Stream Table */
     .stream-table-container {
       overflow-x: auto;
@@ -522,7 +599,7 @@
       padding: 10px 14px;
       border-bottom: 1px solid var(--border-color);
       font-family: var(--font-mono);
-      background: rgba(14, 22, 38, 0.5);
+      background: rgba(14, 22, 38, 0.6);
       white-space: nowrap;
     }
 
@@ -532,8 +609,13 @@
       white-space: nowrap;
     }
 
-    .stream-table tr:hover {
-      background: rgba(0, 102, 255, 0.05);
+    .stream-table tbody tr {
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .stream-table tbody tr:hover {
+      background: rgba(0, 102, 255, 0.12);
     }
 
     /* Incident Card */
@@ -660,7 +742,6 @@
       border-radius: 12px;
       padding: 16px;
       margin-bottom: 18px;
-      position: relative;
     }
 
     .genai-tag {
@@ -745,7 +826,6 @@
       margin-top: 16px;
     }
 
-    /* Preset Scenario Chips (Extra Feature) */
     .preset-chips-bar {
       display: flex;
       align-items: center;
@@ -766,27 +846,12 @@
       cursor: pointer;
       white-space: nowrap;
       transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
 
-    .preset-chip:hover {
-      background: rgba(0, 216, 255, 0.12);
-      border-color: var(--accent-cyan);
-      color: #fff;
-    }
-
-    .preset-chip.active {
+    .preset-chip:hover, .preset-chip.active {
       background: linear-gradient(135deg, rgba(0, 102, 255, 0.4), rgba(0, 216, 255, 0.3));
       border-color: var(--accent-cyan);
       color: #fff;
-    }
-
-    .whatif-controls {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
     }
 
     .control-group {
@@ -794,6 +859,7 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 12px;
       padding: 16px 18px;
+      margin-bottom: 14px;
     }
 
     .control-label-row {
@@ -903,87 +969,6 @@
       transition: all 0.2s;
     }
 
-    .btn-apply-whatif:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0, 102, 255, 0.5);
-    }
-
-    /* Mainframe Telemetry Console (Page & Drawer) */
-    .console-container {
-      background: #040711;
-      border: 1px solid rgba(0, 216, 255, 0.3);
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 600px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
-    }
-
-    .console-header {
-      background: #080d1a;
-      padding: 12px 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .console-filter-bar {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding: 2px 0;
-    }
-
-    .log-filter-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #94a3b8;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      padding: 3px 9px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.15s;
-      white-space: nowrap;
-    }
-
-    .log-filter-btn:hover, .log-filter-btn.active {
-      background: rgba(0, 216, 255, 0.15);
-      border-color: var(--accent-cyan);
-      color: #fff;
-    }
-
-    .terminal-body {
-      flex: 1;
-      padding: 16px 20px;
-      overflow-y: auto;
-      font-size: 12px;
-      line-height: 1.6;
-      color: #cbd5e1;
-      background: radial-gradient(circle at 10% 10%, rgba(0, 102, 255, 0.05) 0%, transparent 40%), #040711;
-      font-family: var(--font-mono);
-    }
-
-    .log-line {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 4px;
-      word-break: break-all;
-    }
-
-    .log-ts { color: #64748b; flex-shrink: 0; }
-    .log-pfx { font-weight: 700; flex-shrink: 0; }
-    .pfx-cdc { color: var(--accent-cyan); }
-    .pfx-zos { color: #60a5fa; }
-    .pfx-racf { color: var(--accent-green); }
-    .pfx-db2 { color: #fbbf24; }
-    .pfx-crit { color: var(--accent-red); font-weight: 800; }
-    .pfx-ai { color: #c084fc; }
-
     /* Executive Audit Dossier (View 4 & Modal) */
     .dossier-card {
       background: #0b1222;
@@ -1071,259 +1056,84 @@
       flex-wrap: wrap;
     }
 
-    /* Modal Backdrop */
-    #dossier-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(4, 7, 17, 0.85);
-      backdrop-filter: blur(8px);
-      z-index: 1500;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      overflow-y: auto;
-    }
-
-    #dossier-modal .dossier-card {
-      max-width: 900px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-    }
-
-    /* Toast */
-    #toast {
-      position: fixed;
-      bottom: 80px;
-      right: 24px;
-      background: #0f2d1f;
-      border: 1px solid var(--accent-green);
-      color: #fff;
-      padding: 16px 22px;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-      display: none;
-      z-index: 2000;
-      max-width: 380px;
-      animation: slideUp 0.3s ease;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    /* Floating Terminal Drawer for Desktop */
-    #terminal-drawer {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 290px;
+    /* Mainframe Telemetry Console */
+    .console-container {
       background: #040711;
-      border-top: 2px solid var(--accent-cyan);
-      z-index: 1300;
-      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.85);
+      border: 1px solid rgba(0, 216, 255, 0.3);
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
       flex-direction: column;
+      height: 600px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
     }
 
-    .terminal-toggle-btn {
-      position: fixed;
-      bottom: 24px;
-      left: 28px;
-      z-index: 1200;
+    .console-header {
+      background: #080d1a;
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 18px;
-      background: rgba(10, 15, 28, 0.92);
-      border: 1px solid var(--accent-cyan);
-      border-radius: 30px;
-      color: var(--accent-cyan);
-      font-family: var(--font-mono);
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(0, 216, 255, 0.25);
-      transition: all 0.2s;
-    }
-
-    .terminal-toggle-btn:hover {
-      background: rgba(0, 102, 255, 0.25);
-      transform: translateY(-2px);
-    }
-
-    /* Print Styles */
-    @media print {
-      body { background: #fff !important; color: #000 !important; }
-      header, .desktop-nav, .mobile-bottom-nav, .terminal-toggle-btn, #terminal-drawer, .btn, .dossier-actions { display: none !important; }
-      .page-view { display: none !important; }
-      #view-audit { display: block !important; }
-      .dossier-card { border: none !important; box-shadow: none !important; background: #fff !important; color: #000 !important; }
-      .dossier-title { color: #003366 !important; }
-      .dossier-v { color: #000 !important; }
-      .dossier-item { border: 1px solid #ccc !important; }
-    }
-
-    /* Responsive Rules (Laptop vs Smartphone) */
-    @media (max-width: 1024px) {
-      .desktop-nav { display: none; }
-      .mobile-bottom-nav { display: flex; }
-      .terminal-toggle-btn { display: none; }
-      .system-status .status-badge:nth-child(2) { display: none; }
-      .kpi-grid { grid-template-columns: 1fr 1fr; }
-      .whatif-grid { grid-template-columns: 1fr; }
-      .dossier-grid { grid-template-columns: 1fr 1fr; }
-      header { padding: 12px 18px; }
-      .container { padding: 16px; }
-    }
-
-    @media (max-width: 640px) {
-      .kpi-grid { grid-template-columns: 1fr; gap: 10px; }
-      .dossier-grid { grid-template-columns: 1fr; }
-      .preview-stats-grid { grid-template-columns: 1fr; }
-      .panel-header { flex-direction: column; align-items: flex-start; }
-      .btn-simulate { width: 100%; justify-content: center; }
-      .system-status { display: none; }
-      .brand h1 { font-size: 18px; }
-      #toast { left: 14px; right: 14px; bottom: 74px; max-width: none; }
-      .console-container { height: 480px; }
-    }
-  
-    /* 🎬 Guided Demo Tour Banner & Overlay */
-    #guided-tour-bar {
-      display: none;
-      position: sticky;
-      top: 68px;
-      left: 0;
-      right: 0;
-      z-index: 480;
-      background: linear-gradient(90deg, #0f172a, #1e1b4b, #0f172a);
-      border-bottom: 2px solid var(--accent-cyan);
-      box-shadow: 0 8px 30px rgba(0, 216, 255, 0.35);
-      padding: 12px 24px;
-      align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      animation: slideDown 0.3s ease;
-    }
-
-    .tour-step-info {
-      display: flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 12px;
     }
 
-    .tour-badge {
-      background: linear-gradient(135deg, #0066ff, #00d8ff);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 4px 10px;
-      border-radius: 20px;
+    .console-filter-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 2px 0;
+    }
+
+    .log-filter-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #94a3b8;
       font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
       white-space: nowrap;
     }
 
-    .tour-text {
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #f1f5f9;
-    }
-
-    .tour-controls {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-shrink: 0;
-    }
-
-    .tour-btn {
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      background: rgba(255, 255, 255, 0.08);
+    .log-filter-btn:hover, .log-filter-btn.active {
+      background: rgba(0, 216, 255, 0.15);
+      border-color: var(--accent-cyan);
       color: #fff;
-      transition: all 0.2s;
     }
 
-    .tour-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .tour-btn-primary {
-      background: linear-gradient(135deg, #00e676, #00b0ff);
-      color: #000;
-      border: none;
-    }
-
-    /* 📱 QR Code Share Modal */
-    #qr-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(4, 7, 17, 0.85);
-      backdrop-filter: blur(8px);
-      z-index: 1600;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .qr-card {
-      background: #0b1222;
-      border: 1px solid rgba(0, 216, 255, 0.4);
-      border-radius: 16px;
-      padding: 28px;
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.8);
-      position: relative;
-    }
-
-    .qr-box {
-      background: #fff;
-      padding: 16px;
-      border-radius: 12px;
-      display: inline-block;
-      margin: 18px 0;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    }
-
-    .qr-box img {
-      display: block;
-      width: 180px;
-      height: 180px;
-    }
-
-    .qr-url-pill {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-family: var(--font-mono);
+    .terminal-body {
+      flex: 1;
+      padding: 16px 20px;
+      overflow-y: auto;
       font-size: 12px;
-      color: var(--accent-cyan);
-      word-break: break-all;
-      margin-bottom: 16px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      background: radial-gradient(circle at 10% 10%, rgba(0, 102, 255, 0.05) 0%, transparent 40%), #040711;
+      font-family: var(--font-mono);
     }
 
-  
-    /* 📊 Status Quo vs ChainSentinel ROI Modal */
-    #roi-modal {
+    .log-line {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 4px;
+      word-break: break-all;
+    }
+
+    .log-ts { color: #64748b; flex-shrink: 0; }
+    .log-pfx { font-weight: 700; flex-shrink: 0; }
+    .pfx-cdc { color: var(--accent-cyan); }
+    .pfx-zos { color: #60a5fa; }
+    .pfx-racf { color: var(--accent-green); }
+    .pfx-db2 { color: #fbbf24; }
+    .pfx-crit { color: var(--accent-red); font-weight: 800; }
+    .pfx-ai { color: #c084fc; }
+
+    /* Modals & Drawers */
+    #roi-modal, #telum-modal, #qr-modal, #dossier-modal {
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -1333,13 +1143,14 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
+      overflow-y: auto;
     }
 
     .roi-card {
       background: #0b1222;
       border: 1px solid rgba(0, 230, 118, 0.4);
       border-radius: 18px;
-      padding: 30px;
+      padding: 28px;
       max-width: 960px;
       width: 100%;
       max-height: 90vh;
@@ -1366,7 +1177,6 @@
       border: 1px solid rgba(0, 230, 118, 0.4);
       border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 0 24px rgba(0, 230, 118, 0.1);
     }
 
     .roi-metric-row {
@@ -1377,7 +1187,7 @@
       font-size: 13px;
     }
 
-    /* 🤖 Ask Granite AI Copilot Drawer */
+    /* Copilot Drawer */
     .copilot-trigger-btn {
       position: fixed;
       bottom: 24px;
@@ -1399,11 +1209,6 @@
       transition: all 0.25s;
     }
 
-    .copilot-trigger-btn:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 8px 32px rgba(0, 216, 255, 0.65);
-    }
-
     #copilot-drawer {
       display: none;
       position: fixed;
@@ -1420,7 +1225,6 @@
       flex-direction: column;
       overflow: hidden;
       backdrop-filter: blur(16px);
-      animation: slideUp 0.25s ease;
     }
 
     .copilot-header {
@@ -1440,7 +1244,6 @@
       flex-direction: column;
       gap: 12px;
       font-size: 13px;
-      line-height: 1.45;
     }
 
     .copilot-msg {
@@ -1469,7 +1272,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 6px;
+      margin-top: 8px;
     }
 
     .copilot-chip {
@@ -1480,12 +1283,6 @@
       padding: 4px 10px;
       border-radius: 16px;
       cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .copilot-chip:hover {
-      background: rgba(0, 216, 255, 0.25);
-      color: #fff;
     }
 
     .copilot-footer {
@@ -1504,12 +1301,7 @@
       color: #fff;
       padding: 9px 12px;
       font-size: 12.5px;
-      font-family: var(--font-main);
       outline: none;
-    }
-
-    .copilot-input:focus {
-      border-color: var(--accent-cyan);
     }
 
     .copilot-send-btn {
@@ -1520,101 +1312,71 @@
       padding: 0 14px;
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s;
     }
 
-    /* 🔍 Table Search & Order Inspector */
-    .table-toolbar {
-      display: flex;
+    /* Guided Tour Banner */
+    #guided-tour-bar {
+      display: none;
+      position: sticky;
+      top: 64px;
+      left: 0; right: 0;
+      z-index: 480;
+      background: linear-gradient(90deg, #0f172a, #1e1b4b, #0f172a);
+      border-bottom: 2px solid var(--accent-cyan);
+      box-shadow: 0 8px 30px rgba(0, 216, 255, 0.35);
+      padding: 12px 24px;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
+      gap: 16px;
     }
 
-    .search-input-box {
-      display: flex;
-      align-items: center;
-      background: rgba(14, 22, 38, 0.85);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 6px 12px;
-      gap: 8px;
-      flex: 1;
-      max-width: 320px;
+    .tour-step-info { display: flex; align-items: center; gap: 12px; }
+    .tour-badge {
+      background: linear-gradient(135deg, #0066ff, #00d8ff);
+      color: #fff; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 20px; font-family: var(--font-mono);
     }
+    .tour-text { font-size: 13.5px; font-weight: 600; color: #f1f5f9; }
+    .tour-controls { display: flex; gap: 8px; }
+    .tour-btn {
+      padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.08); color: #fff;
+    }
+    .tour-btn-primary { background: linear-gradient(135deg, #00e676, #00b0ff); color: #000; border: none; }
 
-    .search-input-box input {
-      background: transparent;
-      border: none;
-      outline: none;
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      background: #0f2d1f;
+      border: 1px solid var(--accent-green);
       color: #fff;
-      font-size: 12px;
-      font-family: var(--font-main);
-      width: 100%;
-    }
-
-    .table-filter-pills {
-      display: flex;
-      gap: 5px;
-    }
-
-    .table-pill {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #94a3b8;
-      font-size: 11px;
-      padding: 4px 10px;
+      padding: 16px 22px;
       border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.15s;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      display: none;
+      z-index: 2000;
+      max-width: 380px;
     }
 
-    .table-pill.active, .table-pill:hover {
-      background: rgba(0, 102, 255, 0.2);
-      border-color: var(--accent-blue);
-      color: #fff;
-    }
-
-    .stream-table tbody tr {
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .stream-table tbody tr.selected-order {
-      background: rgba(0, 216, 255, 0.15) !important;
-      border-left: 3px solid var(--accent-cyan);
-    }
-
-    /* ⚡ Telum Hardware Telemetry Pill */
-    .telum-pill {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0, 102, 255, 0.12);
-      border: 1px solid rgba(0, 102, 255, 0.35);
-      border-radius: 20px;
-      padding: 5px 12px;
-      font-family: var(--font-mono);
-      font-size: 11.5px;
-      color: #93c5fd;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .telum-pill:hover {
-      background: rgba(0, 102, 255, 0.25);
-      border-color: var(--accent-cyan);
-      color: #fff;
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .desktop-nav { display: none; }
+      .mobile-bottom-nav { display: flex; }
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
+      .whatif-grid { grid-template-columns: 1fr; }
+      .dossier-grid { grid-template-columns: 1fr 1fr; }
+      .system-status .status-badge:nth-child(2) { display: none; }
+      header { padding: 12px 18px; }
+      .container { padding: 16px; }
     }
 
     @media (max-width: 640px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+      .dossier-grid { grid-template-columns: 1fr; }
+      .roi-comparison-grid { grid-template-columns: 1fr; }
       #copilot-drawer { right: 12px; bottom: 74px; width: calc(100vw - 24px); height: 460px; }
       .copilot-trigger-btn { bottom: 74px; right: 16px; padding: 8px 16px; font-size: 12px; }
-      .roi-comparison-grid { grid-template-columns: 1fr; }
     }
-
   </style>
 </head>
 <body>
@@ -1650,7 +1412,6 @@
     </nav>
 
     <div class="system-status">
-      
       <div class="telum-pill" onclick="openTelumModal()" title="View IBM Telum Integrated AI Coprocessor Metrics">
         <span class="pulse-dot" style="background: var(--accent-cyan); box-shadow: 0 0 8px var(--accent-cyan);"></span>
         <span>Telum MMA: 1.14ms</span>
@@ -1658,30 +1419,16 @@
       <button class="btn-export-dossier" style="background: rgba(0, 230, 118, 0.12); border-color: rgba(0, 230, 118, 0.35); color: var(--accent-green);" onclick="openRoiModal()">
         <span>📊</span> ROI Analysis
       </button>
-
-      <div class="status-badge">
-        <span class="pulse-dot"></span>
-        IBM LinuxONE (s390x)
-      </div>
-      <div class="status-badge" style="color: var(--accent-cyan); border-color: rgba(0, 216, 255, 0.3); background: rgba(0, 216, 255, 0.08);">
-        <span class="pulse-dot" style="background: var(--accent-cyan); box-shadow: 0 0 10px var(--accent-cyan);"></span>
-        Db2 CDC: ACTIVE
-      </div>
-      
       <button class="btn-export-dossier" style="background: linear-gradient(135deg, rgba(0, 230, 118, 0.15), rgba(0, 176, 255, 0.15)); border-color: rgba(0, 230, 118, 0.4); color: var(--accent-green);" onclick="startGuidedTour()">
         <span>🎬</span> Demo Tour
       </button>
       <button class="btn-export-dossier" style="background: rgba(255, 255, 255, 0.05); color: #cbd5e1; border-color: rgba(255, 255, 255, 0.15);" onclick="openQrModal()">
         <span>📱</span> Phone QR
       </button>
-
-      <button class="btn-export-dossier" onclick="switchTab('audit')">
-        <span>📄</span> Audit Vault
-      </button>
     </div>
   </header>
 
-  <!-- 🎬 Guided Tour Banner Overlay -->
+  <!-- 🎬 Guided Demo Tour Banner -->
   <div id="guided-tour-bar">
     <div class="tour-step-info">
       <span class="tour-badge" id="tour-step-badge">STEP 1 OF 5</span>
@@ -1693,32 +1440,7 @@
     </div>
   </div>
 
-  <!-- 📱 QR Code Share Modal -->
-  <div id="qr-modal">
-    <div class="qr-card">
-      <div style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 6px;">
-        <span>📱</span> Open on Smartphone
-      </div>
-      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">
-        Scan with your iPhone or Android camera to experience the native mobile view with bottom navigation bar!
-      </p>
-      <div class="qr-box">
-        <img id="qr-image" src="" alt="Scan QR Code" />
-      </div>
-      <div class="qr-url-pill" id="qr-url-display">http://localhost:8000</div>
-      <div style="display: flex; gap: 8px; justify-content: center;">
-        <button class="btn btn-simulate" style="background: linear-gradient(135deg, #0066ff, #00d8ff); color: #fff;" onclick="copyQrUrl()">
-          <span>📋</span> Copy Link
-        </button>
-        <button class="btn btn-simulate" style="background: #1e293b; color: #94a3b8;" onclick="closeQrModal()">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Mobile Bottom Navigation Bar (Smartphones & Tablets) -->
+  <!-- Mobile Bottom Navigation Bar -->
   <nav class="mobile-bottom-nav">
     <button class="mobile-nav-item active" id="mtab-operations" onclick="switchTab('operations')">
       <span class="icon">🛰️</span>
@@ -1743,18 +1465,9 @@
     </button>
   </nav>
 
-  <!-- Mobile Floating Critical Incident Pill -->
-  <div id="mobile-incident-pill" onclick="switchTab('incident')" style="display: none;">
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <span style="font-size: 16px;">⚠️</span>
-      <span style="font-weight: 700; font-size: 12.5px;">Order #4471 Critical Disruption (87%)</span>
-    </div>
-    <span style="font-size: 11px; background: rgba(0,0,0,0.3); padding: 3px 8px; border-radius: 6px; font-weight: 600;">Resolve ➔</span>
-  </div>
-
   <div class="container">
     
-    <!-- Top KPIs (Global Across Views) -->
+    <!-- Top KPIs -->
     <div class="kpi-grid">
       <div class="kpi-card">
         <div class="kpi-label">Value at Risk Protected</div>
@@ -1797,25 +1510,17 @@
           </div>
         </div>
 
-        <!-- Interactive Global Route Map (Upgrade 1) -->
-        <div id="map-wrapper" style="height: 380px; width: 100%; border-radius: 14px; margin-bottom: 20px; overflow: hidden; border: 1px solid var(--border-color); position: relative; background: #070a10;">
-          <div id="route-map" style="height: 100%; width: 100%; z-index: 1;"></div>
-          <div style="position: absolute; bottom: 12px; left: 14px; z-index: 10; background: rgba(10, 14, 23, 0.9); padding: 6px 14px; border-radius: 8px; font-size: 11.5px; border: 1px solid var(--border-color); display: flex; gap: 14px; backdrop-filter: blur(8px); flex-wrap: wrap;">
+        <!-- Interactive Global Route Map (Dark Canvas with Zero Tile Glitches) -->
+        <div id="map-wrapper">
+          <div id="route-map"></div>
+          <div style="position: absolute; bottom: 12px; left: 14px; z-index: 10; background: rgba(10, 14, 23, 0.92); padding: 7px 16px; border-radius: 8px; font-size: 11.5px; border: 1px solid var(--border-color); display: flex; gap: 14px; backdrop-filter: blur(8px); flex-wrap: wrap;">
             <span style="display: flex; align-items: center; gap: 6px;"><span style="color: var(--accent-cyan); font-size: 14px;">●</span> Normal Active Route</span>
             <span style="display: flex; align-items: center; gap: 6px;"><span style="color: var(--accent-red); font-size: 14px;">●</span> Disruption Alert</span>
             <span style="display: flex; align-items: center; gap: 6px;"><span style="color: var(--accent-green); font-size: 14px;">●</span> z/OS Connect Reroute (Frankfurt)</span>
           </div>
         </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <div style="font-size: 14px; font-weight: 700; color: #e2e8f0;">
-            Real-Time Db2 CDC Transaction Feed
-          </div>
-          <span style="font-size: 11.5px; color: var(--text-muted); font-family: var(--font-mono);">Subsystem: DB2P • Frequency: 3.2s</span>
-        </div>
-
-        
-        <!-- Table Search & Filters (Upgrade 3) -->
+        <!-- Table Toolbar -->
         <div class="table-toolbar">
           <div class="search-input-box">
             <span style="color: #64748b;">🔍</span>
@@ -1872,7 +1577,7 @@
             </div>
           </div>
 
-          <!-- Explainable AI (SHAP Risk Drivers) - Upgrade 2 -->
+          <!-- Explainable AI (SHAP Risk Drivers) -->
           <div class="xai-container">
             <div class="xai-header">
               <div class="xai-title">
@@ -1886,53 +1591,39 @@
                   <span class="driver-name">● Carrier Mode: Standard Ground</span>
                   <span class="driver-pct danger">+34% Risk</span>
                 </div>
-                <div class="driver-bar-bg">
-                  <div class="driver-bar-fill danger" style="width: 34%;"></div>
-                </div>
+                <div class="driver-bar-bg"><div class="driver-bar-fill danger" style="width: 34%;"></div></div>
                 <div class="driver-subtext">Elevated latency variance on Western Europe ground corridors</div>
               </div>
-
               <div class="driver-item">
                 <div class="driver-top">
                   <span class="driver-name">● Delivery SLA: 4 Days Scheduled</span>
                   <span class="driver-pct danger">+28% Risk</span>
                 </div>
-                <div class="driver-bar-bg">
-                  <div class="driver-bar-fill danger" style="width: 28%;"></div>
-                </div>
+                <div class="driver-bar-bg"><div class="driver-bar-fill danger" style="width: 28%;"></div></div>
                 <div class="driver-subtext">Compressed delivery window leaves no buffer for supplier slip</div>
               </div>
-
               <div class="driver-item">
                 <div class="driver-top">
                   <span class="driver-name">● Capital Exposure: $1,900,000</span>
                   <span class="driver-pct danger">+18% Risk</span>
                 </div>
-                <div class="driver-bar-bg">
-                  <div class="driver-bar-fill danger" style="width: 18%;"></div>
-                </div>
+                <div class="driver-bar-bg"><div class="driver-bar-fill danger" style="width: 18%;"></div></div>
                 <div class="driver-subtext">Tier-1 enterprise microchip modules require active mitigation</div>
               </div>
-
               <div class="driver-item">
                 <div class="driver-top">
                   <span class="driver-name">● Cross-Border: USA → France</span>
                   <span class="driver-pct danger">+12% Risk</span>
                 </div>
-                <div class="driver-bar-bg">
-                  <div class="driver-bar-fill danger" style="width: 12%;"></div>
-                </div>
+                <div class="driver-bar-bg"><div class="driver-bar-fill danger" style="width: 12%;"></div></div>
                 <div class="driver-subtext">Transatlantic air/sea cargo connection and customs entry</div>
               </div>
-
               <div class="driver-item">
                 <div class="driver-top">
                   <span class="driver-name">● Order Volume: 800 Units</span>
                   <span class="driver-pct danger">+8% Risk</span>
                 </div>
-                <div class="driver-bar-bg">
-                  <div class="driver-bar-fill danger" style="width: 8%;"></div>
-                </div>
+                <div class="driver-bar-bg"><div class="driver-bar-fill danger" style="width: 8%;"></div></div>
                 <div class="driver-subtext">Pallet-level staging required at origin hub</div>
               </div>
             </div>
@@ -1952,9 +1643,6 @@
           </div>
 
           <!-- Prescriptive Recommendations -->
-          <div style="font-size: 13.5px; font-weight: 700; color: #fff; margin-bottom: 10px;">
-            AI Multi-Criteria Mitigation Options (Ranked by ROI):
-          </div>
           <div class="recommendation-list">
             <label class="rec-item active">
               <input type="radio" name="rec" class="rec-radio" checked>
@@ -1964,7 +1652,6 @@
               </div>
               <div class="rec-cost">+$48,000 Expedite</div>
             </label>
-
             <label class="rec-item">
               <input type="radio" name="rec" class="rec-radio">
               <div class="rec-text">
@@ -1973,23 +1660,13 @@
               </div>
               <div class="rec-cost">+$65,000 Expedite</div>
             </label>
-
-            <label class="rec-item">
-              <input type="radio" name="rec" class="rec-radio">
-              <div class="rec-text">
-                <strong>Transfer buffer safety stock from Frankfurt Regional Hub</strong>
-                <div style="font-size: 12px; color: var(--text-muted)">Covers short-term production gap</div>
-              </div>
-              <div class="rec-cost">+$12,500 Transit</div>
-            </label>
           </div>
 
-          <!-- Action Buttons -->
           <div style="display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap;">
             <button class="btn btn-action" id="btn-approve" style="flex: 2; min-width: 240px;" onclick="executeZosAction()">
               ✓ Approve & Execute via z/OS Connect API
             </button>
-            <button class="btn btn-export-dossier" style="flex: 1; justify-content: center; border-radius: 10px; padding: 12px 18px; font-size: 13.5px;" onclick="switchTab('audit')">
+            <button class="btn btn-export-dossier" style="flex: 1; justify-content: center; border-radius: 10px; padding: 12px 18px;" onclick="switchTab('audit')">
               <span>📄</span> Compliance Dossier
             </button>
           </div>
@@ -2004,47 +1681,29 @@
           <div class="panel-title">
             <span style="color: var(--accent-cyan)">🎛️</span> Interactive "What-If" Supply Chain Sandbox
           </div>
-          <div style="font-size: 12.5px; color: var(--text-muted); font-family: var(--font-mono); display: flex; align-items: center; gap: 8px;">
+          <div style="font-size: 12.5px; color: var(--text-muted); font-family: var(--font-mono);">
             <span style="color: var(--accent-green)">●</span> Real-Time Multi-Agent Re-evaluation
           </div>
         </div>
 
-        <!-- Extra Feature: Scenario Preset Chips for Laptop & Smartphone -->
-        <div style="margin-bottom: 8px; font-size: 12.5px; font-weight: 600; color: #cbd5e1;">
-          ⚡ Quick Scenario Stress-Test Presets:
-        </div>
         <div class="preset-chips-bar">
-          <button class="preset-chip active" onclick="applyPreset('slide8')">
-            <span>⚠️</span> Slide 8 Benchmark (+36h, $1.9M)
-          </button>
-          <button class="preset-chip" onclick="applyPreset('blockade')">
-            <span>🚢</span> Port Bottleneck (+48h)
-          </button>
-          <button class="preset-chip" onclick="applyPreset('air')">
-            <span>✈️</span> High-Velocity Air Upgrade (1 Day)
-          </button>
-          <button class="preset-chip" onclick="applyPreset('stockout')">
-            <span>🚨</span> Critical Supplier Stockout (+72h)
-          </button>
-          <button class="preset-chip" onclick="applyPreset('baseline')">
-            <span>🟢</span> On-Schedule Baseline (0h)
-          </button>
+          <button class="preset-chip active" onclick="applyPreset('slide8')"><span>⚠️</span> Slide 8 Benchmark (+36h)</button>
+          <button class="preset-chip" onclick="applyPreset('blockade')"><span>🚢</span> Port Bottleneck (+48h)</button>
+          <button class="preset-chip" onclick="applyPreset('air')"><span>✈️</span> Air Expedite (1 Day)</button>
+          <button class="preset-chip" onclick="applyPreset('stockout')"><span>🚨</span> Supplier Stockout (+72h)</button>
+          <button class="preset-chip" onclick="applyPreset('baseline')"><span>🟢</span> On-Schedule (0h)</button>
         </div>
 
         <div class="whatif-grid">
-          <!-- Controls Column -->
           <div class="whatif-controls">
-            <!-- Control 1: Delay Hours -->
             <div class="control-group">
               <div class="control-label-row">
                 <span>Primary Supplier Delay Variance:</span>
                 <span class="control-value-badge" id="lbl-delay">+36 Hours</span>
               </div>
               <input type="range" class="slider-input" id="input-delay" min="0" max="72" value="36" step="2" oninput="updateWhatIf()">
-              <div style="font-size: 11px; color: var(--text-muted);">Baseline: 0h = on schedule; 36h = Slide 8 threshold; 72h = complete stockout</div>
             </div>
 
-            <!-- Control 2: Freight Mode -->
             <div class="control-group">
               <div class="control-label-row">
                 <span>Carrier Freight Tier:</span>
@@ -2058,33 +1717,28 @@
               </select>
             </div>
 
-            <!-- Control 3: Capital Exposure -->
             <div class="control-group">
               <div class="control-label-row">
                 <span>Transaction Capital Exposure:</span>
                 <span class="control-value-badge" id="lbl-value">$1,900,000</span>
               </div>
               <input type="range" class="slider-input" id="input-value" min="50000" max="3000000" value="1900000" step="50000" oninput="updateWhatIf()">
-              <div style="font-size: 11px; color: var(--text-muted);">Simulates financial criticality: Tier-1 microchips ($1.9M) vs standard component batches</div>
             </div>
 
-            <!-- Control 4: SLA Scheduled Window -->
             <div class="control-group">
               <div class="control-label-row">
                 <span>Target Delivery SLA Window:</span>
                 <span class="control-value-badge" id="lbl-sla">4 Days Scheduled</span>
               </div>
               <input type="range" class="slider-input" id="input-sla" min="1" max="7" value="4" step="1" oninput="updateWhatIf()">
-              <div style="font-size: 11px; color: var(--text-muted);">Tighter SLA windows compress buffer margin, driving late probability up</div>
             </div>
           </div>
 
-          <!-- Real-Time Evaluation Preview Column -->
           <div class="whatif-preview-card">
             <div>
               <div class="panel-header" style="margin-bottom: 8px;">
-                <span style="font-size: 13.5px; font-weight: 700; color: #f1f5f9; text-transform: uppercase; letter-spacing: 0.5px;">
-                  ⚡ Live Stress-Test Evaluation
+                <span style="font-size: 13.5px; font-weight: 700; color: #f1f5f9; text-transform: uppercase;">
+                  ⚡ Live Stress-Test Output
                 </span>
                 <span class="badge badge-critical" id="whatif-badge">CRITICAL DISRUPTION</span>
               </div>
@@ -2099,11 +1753,11 @@
                   <div class="preview-stat-val" id="whatif-var" style="color: var(--accent-cyan);">$1,653,000</div>
                 </div>
                 <div class="preview-stat-box">
-                  <div class="preview-stat-label">Estimated Transit Days</div>
+                  <div class="preview-stat-label">Estimated Transit</div>
                   <div class="preview-stat-val" id="whatif-days" style="color: #cbd5e1;">2 - 4 Days</div>
                 </div>
                 <div class="preview-stat-box">
-                  <div class="preview-stat-label">Model Inference Latency</div>
+                  <div class="preview-stat-label">Inference Latency</div>
                   <div class="preview-stat-val" id="whatif-lat" style="color: var(--accent-green);">11.2 ms</div>
                 </div>
               </div>
@@ -2143,110 +1797,50 @@
               <span>⬇️</span> Download JSON
             </button>
             <button onclick="printDossier()" class="btn btn-export-dossier" style="background: linear-gradient(135deg, #0066ff, #00d8ff); color: #fff;">
-              <span>🖨️</span> Print / Save PDF
+              <span>🖨️</span> Print PDF
             </button>
           </div>
         </div>
 
-        <!-- Section 1: Order & Transit Profile -->
         <div class="dossier-section">
           <div class="dossier-sec-title"><span>📋</span> Transaction & Operational Profile</div>
           <div class="dossier-grid">
-            <div class="dossier-item">
-              <span class="dossier-k">Order Identifier</span>
-              <span class="dossier-v" id="doss-orderid">Order #4471</span>
-            </div>
-            <div class="dossier-item">
-              <span class="dossier-k">Target SKU Category</span>
-              <span class="dossier-v" id="doss-category">Tier-1 Enterprise Server Modules</span>
-            </div>
-            <div class="dossier-item">
-              <span class="dossier-k">Declared Valuation</span>
-              <span class="dossier-v" id="doss-value" style="color: var(--accent-cyan);">$1,900,000.00</span>
-            </div>
-            <div class="dossier-item">
-              <span class="dossier-k">Origin Hub</span>
-              <span class="dossier-v">New York Hub (EE. UU.)</span>
-            </div>
-            <div class="dossier-item">
-              <span class="dossier-k">Destination Hub</span>
-              <span class="dossier-v" id="doss-dest">Paris Central Hub (France)</span>
-            </div>
-            <div class="dossier-item">
-              <span class="dossier-k">Carrier Freight Tier</span>
-              <span class="dossier-v" id="doss-mode">Standard Ground (4d SLA)</span>
-            </div>
+            <div class="dossier-item"><span class="dossier-k">Order Identifier</span><span class="dossier-v" id="doss-orderid">Order #4471</span></div>
+            <div class="dossier-item"><span class="dossier-k">Target SKU Category</span><span class="dossier-v" id="doss-category">Tier-1 Enterprise Server Modules</span></div>
+            <div class="dossier-item"><span class="dossier-k">Declared Valuation</span><span class="dossier-v" id="doss-value" style="color: var(--accent-cyan);">$1,900,000.00</span></div>
+            <div class="dossier-item"><span class="dossier-k">Origin Hub</span><span class="dossier-v">New York Hub (EE. UU.)</span></div>
+            <div class="dossier-item"><span class="dossier-k">Destination Hub</span><span class="dossier-v" id="doss-dest">Paris Central Hub (France)</span></div>
+            <div class="dossier-item"><span class="dossier-k">Carrier Freight Tier</span><span class="dossier-v" id="doss-mode">Standard Ground (4d SLA)</span></div>
           </div>
         </div>
 
-        <!-- Section 2: Multi-Agent AI Scoring & Drivers -->
         <div class="dossier-section">
           <div class="dossier-sec-title"><span>🤖</span> Multi-Agent AI Assessment & SHAP Attribution</div>
           <div class="dossier-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 12px;">
-            <div class="dossier-item">
-              <span class="dossier-k">Disruption Probability</span>
-              <span class="dossier-v" id="doss-prob" style="color: var(--accent-red);">87.0%</span>
-            </div>
-            <div class="dossier-item">
-              <span class="dossier-k">Triage Classification</span>
-              <span class="dossier-v" id="doss-alert" style="color: var(--accent-red);">CRITICAL</span>
-            </div>
-            <div class="dossier-item">
-              <span class="dossier-k">Value at Risk</span>
-              <span class="dossier-v" id="doss-var" style="color: var(--accent-cyan);">$1,700,000.00</span>
-            </div>
-            <div class="dossier-item">
-              <span class="dossier-k">Decision Latency</span>
-              <span class="dossier-v" style="color: var(--accent-green);">11.4 ms</span>
-            </div>
+            <div class="dossier-item"><span class="dossier-k">Disruption Probability</span><span class="dossier-v" id="doss-prob" style="color: var(--accent-red);">87.0%</span></div>
+            <div class="dossier-item"><span class="dossier-k">Triage Classification</span><span class="dossier-v" id="doss-alert" style="color: var(--accent-red);">CRITICAL</span></div>
+            <div class="dossier-item"><span class="dossier-k">Value at Risk</span><span class="dossier-v" id="doss-var" style="color: var(--accent-cyan);">$1,700,000.00</span></div>
+            <div class="dossier-item"><span class="dossier-k">Decision Latency</span><span class="dossier-v" style="color: var(--accent-green);">11.4 ms</span></div>
           </div>
-
           <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 14px; font-size: 12.5px; color: #cbd5e1; line-height: 1.5; margin-bottom: 12px;">
             <strong style="color: var(--accent-cyan);">IBM Granite Executive Rationale (s390x Native):</strong><br>
             <span id="doss-granite">High risk: Supplier A is 36 hours late, stock covers 4 days, demand is up 18%. Recommended: shift 60% of volume to Supplier B and reroute shipment 4471. Protects about $1.7M of orders for about $48K added cost. Status quo: found in next week's review, after the stock-out.</span>
           </div>
-
-          <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 14px;">
-            <div style="font-size: 11px; font-weight: 700; color: var(--accent-cyan); text-transform: uppercase; margin-bottom: 8px;">Top Risk Drivers (Tree SHAP):</div>
-            <div id="doss-drivers-list" style="display: flex; flex-direction: column; gap: 6px; font-size: 12px; font-family: var(--font-mono); color: #94a3b8;">
-              <div>• Carrier Mode: Standard Ground — <span style="color: var(--accent-red);">+34.0%</span> (Corridor latency variance)</div>
-              <div>• Delivery SLA: 4 Days Scheduled — <span style="color: var(--accent-red);">+28.0%</span> (Buffer margin compression)</div>
-              <div>• Capital Exposure: $1,900,000 — <span style="color: var(--accent-red);">+18.0%</span> (Tier-1 mission critical)</div>
-              <div>• Cross-Border: USA -> France — <span style="color: var(--accent-red);">+12.0%</span> (Customs & port inspection)</div>
-            </div>
-          </div>
         </div>
 
-        <!-- Section 3: IBM Z Mainframe Verification & Audit Trail -->
         <div class="dossier-section">
           <div class="dossier-sec-title"><span>🔒</span> IBM Z Mainframe Governance & Audit Signature</div>
           <div class="dossier-grid" style="grid-template-columns: repeat(2, 1fr);">
-            <div class="dossier-item">
-              <span class="dossier-k">Db2 for z/OS Commit Return Code</span>
-              <span class="dossier-v" style="color: var(--accent-green);">0000 (SUCCESS_COMMIT - ACID Guaranteed)</span>
-            </div>
-            <div class="dossier-item">
-              <span class="dossier-k">z/OS Connect API Gateway Txn</span>
-              <span class="dossier-v" id="doss-txnid">ZOS-COMMIT-904812</span>
-            </div>
-            <div class="dossier-item">
-              <span class="dossier-k">Platform Architecture</span>
-              <span class="dossier-v">IBM LinuxONE / s390x (Big-Endian Verified)</span>
-            </div>
-            <div class="dossier-item">
-              <span class="dossier-k">Cryptographic Integrity Hash</span>
-              <span class="dossier-v" id="doss-hash" style="color: var(--accent-cyan);">SHA256:BD72C7FF81C5A385</span>
-            </div>
+            <div class="dossier-item"><span class="dossier-k">Db2 Commit Return Code</span><span class="dossier-v" style="color: var(--accent-green);">0000 (SUCCESS_COMMIT - ACID Guaranteed)</span></div>
+            <div class="dossier-item"><span class="dossier-k">z/OS Connect API Gateway Txn</span><span class="dossier-v" id="doss-txnid">ZOS-COMMIT-904812</span></div>
+            <div class="dossier-item"><span class="dossier-k">Platform Architecture</span><span class="dossier-v">IBM LinuxONE / s390x (Big-Endian Verified)</span></div>
+            <div class="dossier-item"><span class="dossier-k">Cryptographic Integrity Hash</span><span class="dossier-v" id="doss-hash" style="color: var(--accent-cyan);">SHA256:BD72C7FF81C5A385</span></div>
           </div>
         </div>
 
         <div class="dossier-actions">
-          <button onclick="downloadDossierJson()" class="btn btn-simulate" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); color: #cbd5e1;">
-            <span>⬇️</span> Download Machine-Readable JSON
-          </button>
-          <button onclick="printDossier()" class="btn btn-simulate" style="background: linear-gradient(135deg, #0066ff, #00d8ff); color: #fff;">
-            <span>🖨️</span> Print / Save PDF Dossier
-          </button>
+          <button onclick="downloadDossierJson()" class="btn btn-simulate" style="background: rgba(255, 255, 255, 0.05); color: #cbd5e1;"><span>⬇️</span> Download Machine-Readable JSON</button>
+          <button onclick="printDossier()" class="btn btn-simulate" style="background: linear-gradient(135deg, #0066ff, #00d8ff); color: #fff;"><span>🖨️</span> Print PDF Dossier</button>
         </div>
       </div>
     </section>
@@ -2260,8 +1854,6 @@
             <strong style="color: #fff; font-size: 13.5px;">IBM z/OS v2.5 Telemetry Stream</strong>
             <span style="color: var(--text-muted); font-size: 11px; font-family: var(--font-mono);">[SYSNAME=ZOS1 • SUBSYS=DB2P • LPAR=LINUXONE-S390X]</span>
           </div>
-
-          <!-- Log Severity Filter Bar (Extra Feature) -->
           <div class="console-filter-bar">
             <button class="log-filter-btn active" onclick="filterLogs('ALL')">ALL</button>
             <button class="log-filter-btn" onclick="filterLogs('CDC')">CDC</button>
@@ -2273,15 +1865,13 @@
             <button class="log-filter-btn" id="term-scroll-btn-main" onclick="toggleAutoScroll()">[Auto-Scroll: ON]</button>
           </div>
         </div>
-
-        <div class="terminal-body" id="terminal-logs-main">
-          <!-- Dynamic logs populated here -->
-        </div>
+        <div class="terminal-body" id="terminal-logs-main"></div>
       </div>
     </section>
 
-  
-  <!-- 📊 Status Quo vs ChainSentinel ROI Modal (Upgrade 1) -->
+  </div> <!-- /container -->
+
+  <!-- 📊 ROI Modal -->
   <div id="roi-modal">
     <div class="roi-card">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 14px;">
@@ -2297,69 +1887,40 @@
       </div>
 
       <div class="roi-comparison-grid">
-        <!-- Legacy Status Quo -->
         <div class="roi-col-legacy">
           <div style="font-size: 15px; font-weight: 800; color: var(--accent-red); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
             <span>❌</span> Status Quo (Legacy Manual Triage)
           </div>
-          <div class="roi-metric-row">
-            <span style="color: var(--text-muted);">Disruption Detection Lag</span>
-            <span style="color: var(--accent-red); font-weight: 700;">5 - 7 Days (Post-Mortem)</span>
-          </div>
-          <div class="roi-metric-row">
-            <span style="color: var(--text-muted);">Inventory Stockout Impact</span>
-            <span style="color: #f1f5f9; font-weight: 600;">$1,900,000 lost revenue</span>
-          </div>
-          <div class="roi-metric-row">
-            <span style="color: var(--text-muted);">Customer SLA Penalties</span>
-            <span style="color: #f1f5f9; font-weight: 600;">+$200,000 breach fee</span>
-          </div>
-          <div class="roi-metric-row">
-            <span style="color: var(--text-muted);">Total Incident Exposure</span>
-            <span style="color: var(--accent-red); font-weight: 800; font-family: var(--font-mono); font-size: 15px;">-$2,100,000.00</span>
-          </div>
+          <div class="roi-metric-row"><span style="color: var(--text-muted);">Disruption Detection Lag</span><span style="color: var(--accent-red); font-weight: 700;">5 - 7 Days (Post-Mortem)</span></div>
+          <div class="roi-metric-row"><span style="color: var(--text-muted);">Inventory Stockout Impact</span><span style="color: #f1f5f9; font-weight: 600;">$1,900,000 lost revenue</span></div>
+          <div class="roi-metric-row"><span style="color: var(--text-muted);">Customer SLA Penalties</span><span style="color: #f1f5f9; font-weight: 600;">+$200,000 breach fee</span></div>
+          <div class="roi-metric-row"><span style="color: var(--text-muted);">Total Incident Exposure</span><span style="color: var(--accent-red); font-weight: 800; font-family: var(--font-mono); font-size: 15px;">-$2,100,000.00</span></div>
           <div style="margin-top: 14px; font-size: 12px; color: #94a3b8; line-height: 1.4;">
             Disruptions only surface after production lines freeze or during manual spreadsheet reconciliations.
           </div>
         </div>
 
-        <!-- ChainSentinel on IBM Z -->
         <div class="roi-col-chainsentinel">
           <div style="font-size: 15px; font-weight: 800; color: var(--accent-green); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
             <span>✓</span> ChainSentinel on IBM LinuxONE
           </div>
-          <div class="roi-metric-row">
-            <span style="color: var(--text-muted);">AI Decision Latency</span>
-            <span style="color: var(--accent-green); font-weight: 700;">11.4 ms (Sub-second triage)</span>
-          </div>
-          <div class="roi-metric-row">
-            <span style="color: var(--text-muted);">Protected Capital Value</span>
-            <span style="color: var(--accent-cyan); font-weight: 700;">$1,700,000.00</span>
-          </div>
-          <div class="roi-metric-row">
-            <span style="color: var(--text-muted);">Expedite Mitigation Cost</span>
-            <span style="color: #f1f5f9; font-weight: 600;">+$48,000 (Supplier B 60% buffer)</span>
-          </div>
-          <div class="roi-metric-row">
-            <span style="color: var(--text-muted);">Net Financial Benefit</span>
-            <span style="color: var(--accent-green); font-weight: 800; font-family: var(--font-mono); font-size: 15px;">+$1,652,000.00</span>
-          </div>
+          <div class="roi-metric-row"><span style="color: var(--text-muted);">AI Decision Latency</span><span style="color: var(--accent-green); font-weight: 700;">11.4 ms (Sub-second triage)</span></div>
+          <div class="roi-metric-row"><span style="color: var(--text-muted);">Protected Capital Value</span><span style="color: var(--accent-cyan); font-weight: 700;">$1,700,000.00</span></div>
+          <div class="roi-metric-row"><span style="color: var(--text-muted);">Expedite Mitigation Cost</span><span style="color: #f1f5f9; font-weight: 600;">+$48,000 (Supplier B 60% buffer)</span></div>
+          <div class="roi-metric-row"><span style="color: var(--text-muted);">Net Financial Benefit</span><span style="color: var(--accent-green); font-weight: 800; font-family: var(--font-mono); font-size: 15px;">+$1,652,000.00</span></div>
           <div style="margin-top: 14px; background: rgba(0, 230, 118, 0.1); border-radius: 8px; padding: 10px; font-size: 13px; color: #fff; font-weight: 700; text-align: center;">
             🎯 Return on Investment (ROI): <span style="color: var(--accent-green); font-size: 16px;">35.4x Protected Value</span>
           </div>
         </div>
       </div>
-
-      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
-        <button onclick="closeRoiModal()" class="btn btn-simulate" style="background: #1e293b; color: #94a3b8;">
-          Close
-        </button>
+      <div style="display: flex; justify-content: flex-end;">
+        <button onclick="closeRoiModal()" class="btn btn-simulate" style="background: #1e293b; color: #94a3b8;">Close</button>
       </div>
     </div>
   </div>
 
-  <!-- ⚡ IBM Telum AI Hardware Telemetry Modal (Upgrade 4) -->
-  <div id="telum-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(4,7,17,0.85); backdrop-filter: blur(8px); z-index: 1700; align-items: center; justify-content: center; padding: 20px;">
+  <!-- ⚡ Telum Modal -->
+  <div id="telum-modal">
     <div class="roi-card" style="max-width: 650px; border-color: rgba(0, 216, 255, 0.4);">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 12px;">
         <div style="font-size: 18px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px;">
@@ -2369,43 +1930,36 @@
       </div>
 
       <div class="dossier-grid" style="grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px;">
-        <div class="dossier-item">
-          <span class="dossier-k">Processor Architecture</span>
-          <span class="dossier-v">IBM Telum Dual-Chip Module (s390x)</span>
-        </div>
-        <div class="dossier-item">
-          <span class="dossier-k">Inference Latency</span>
-          <span class="dossier-v" style="color: var(--accent-green);">1.14 ms (Direct MMA Cores)</span>
-        </div>
-        <div class="dossier-item">
-          <span class="dossier-k">PCIe Offload Overhead</span>
-          <span class="dossier-v" style="color: var(--accent-cyan);">0.00 ms (Zero PCIe bus lag)</span>
-        </div>
-        <div class="dossier-item">
-          <span class="dossier-k">Matrix Multiply Throughput</span>
-          <span class="dossier-v">6.4 TFLOPS (FP16 / INT8)</span>
-        </div>
-        <div class="dossier-item">
-          <span class="dossier-k">Dedicated LPAR Cores</span>
-          <span class="dossier-v">16 IFLs (Integrated Facility for Linux)</span>
-        </div>
-        <div class="dossier-item">
-          <span class="dossier-k">Db2 Buffer Pool Hit Ratio</span>
-          <span class="dossier-v" style="color: var(--accent-green);">99.82% (In-Memory CDC)</span>
-        </div>
+        <div class="dossier-item"><span class="dossier-k">Processor Architecture</span><span class="dossier-v">IBM Telum Dual-Chip (s390x)</span></div>
+        <div class="dossier-item"><span class="dossier-k">Inference Latency</span><span class="dossier-v" style="color: var(--accent-green);">1.14 ms (Direct MMA Cores)</span></div>
+        <div class="dossier-item"><span class="dossier-k">PCIe Bus Overhead</span><span class="dossier-v" style="color: var(--accent-cyan);">0.00 ms (Zero PCIe bus lag)</span></div>
+        <div class="dossier-item"><span class="dossier-k">Throughput</span><span class="dossier-v">6.4 TFLOPS (FP16 / INT8)</span></div>
+        <div class="dossier-item"><span class="dossier-k">Dedicated LPAR Cores</span><span class="dossier-v">16 IFLs (Integrated Linux)</span></div>
+        <div class="dossier-item"><span class="dossier-k">Db2 Buffer Pool Hit Ratio</span><span class="dossier-v" style="color: var(--accent-green);">99.82% (In-Memory CDC)</span></div>
       </div>
-
-      <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">
-        By executing neural network and gradient-boosted tree inference directly on the IBM Telum processor's on-chip AI accelerator, ChainSentinel scores transactions in-flight without off-loading data to external GPU clusters, satisfying stringent banking and enterprise SLA latency budgets (< 5 ms).
-      </p>
-
       <div style="display: flex; justify-content: flex-end;">
         <button onclick="closeTelumModal()" class="btn btn-simulate" style="background: #1e293b; color: #94a3b8;">Close</button>
       </div>
     </div>
   </div>
 
-  <!-- 🤖 Floating Granite AI Copilot Trigger & Drawer (Upgrade 2) -->
+  <!-- 📱 QR Modal -->
+  <div id="qr-modal">
+    <div class="roi-card" style="max-width: 420px; text-align: center; border-color: rgba(0,216,255,0.4);">
+      <div style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 6px;"><span>📱</span> Open on Smartphone</div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Scan with your mobile camera to test the mobile bottom navigation bar!</p>
+      <div style="background: #fff; padding: 14px; border-radius: 12px; display: inline-block; margin-bottom: 16px;">
+        <img id="qr-image" src="" alt="QR" style="display: block; width: 180px; height: 180px;">
+      </div>
+      <div style="font-family: var(--font-mono); font-size: 12px; color: var(--accent-cyan); word-break: break-all; margin-bottom: 16px;" id="qr-url-display"></div>
+      <div style="display: flex; gap: 8px; justify-content: center;">
+        <button class="btn btn-simulate" style="background: linear-gradient(135deg, #0066ff, #00d8ff); color: #fff;" onclick="copyQrUrl()"><span>📋</span> Copy Link</button>
+        <button class="btn btn-simulate" style="background: #1e293b; color: #94a3b8;" onclick="closeQrModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🤖 Ask Granite AI Copilot Trigger & Drawer -->
   <button class="copilot-trigger-btn" onclick="toggleCopilot()">
     <span>🤖</span> Ask Granite AI
   </button>
@@ -2440,8 +1994,6 @@
     </div>
   </div>
 
-  </div> <!-- /container -->
-
   <!-- Mainframe Confirmation Toast -->
   <div id="toast">
     <h4 style="color: var(--accent-green); margin-bottom: 6px; font-size: 15px;">✓ Committed on Db2 for z/OS</h4>
@@ -2451,250 +2003,152 @@
     </div>
   </div>
 
-  <!-- Reusable Executive Audit Dossier Modal -->
-  <div id="dossier-modal">
-    <div class="dossier-card">
-      <div class="dossier-header">
-        <div>
-          <div class="dossier-title">
-            <span style="font-size: 24px;">🛡️</span> IBM Z Supply Chain Resilience: Audit Dossier
-          </div>
-          <div class="dossier-sub">Official Compliance & Multi-Agent Verification Record • IBM LinuxONE (s390x)</div>
-        </div>
-        <button onclick="closeAuditDossier()" style="background: none; border: none; color: #94a3b8; font-size: 22px; cursor: pointer; padding: 4px 8px;">✕</button>
-      </div>
+  <!-- PROPERLY CLOSED SCRIPT TAG -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // ================= VIEW NAVIGATION (MULTI-PAGE ENGINE) =================
+    let currentTab = 'operations';
 
-      <div class="dossier-section">
-        <div class="dossier-sec-title"><span>📋</span> Transaction Profile</div>
-        <div class="dossier-grid">
-          <div class="dossier-item"><span class="dossier-k">Order Identifier</span><span class="dossier-v" id="modal-doss-orderid">Order #4471</span></div>
-          <div class="dossier-item"><span class="dossier-k">Category</span><span class="dossier-v" id="modal-doss-category">Tier-1 Enterprise Server Modules</span></div>
-          <div class="dossier-item"><span class="dossier-k">Declared Value</span><span class="dossier-v" id="modal-doss-value" style="color: var(--accent-cyan);">$1,900,000.00</span></div>
-          <div class="dossier-item"><span class="dossier-k">Disruption Risk</span><span class="dossier-v" id="modal-doss-prob" style="color: var(--accent-red);">87.0% (CRITICAL)</span></div>
-          <div class="dossier-item"><span class="dossier-k">Db2 Commit Code</span><span class="dossier-v" style="color: var(--accent-green);">0000 (SUCCESS_COMMIT)</span></div>
-          <div class="dossier-item"><span class="dossier-k">Security Hash</span><span class="dossier-v" id="modal-doss-hash" style="color: var(--accent-cyan);">SHA256:BD72C7FF81C5A385</span></div>
-        </div>
-      </div>
+    function switchTab(tabId) {
+      currentTab = tabId;
 
-      <div class="dossier-actions">
-        <button onclick="downloadDossierJson()" class="btn btn-simulate"><span>⬇️</span> Download JSON</button>
-        <button onclick="printDossier()" class="btn btn-simulate" style="background: linear-gradient(135deg, #0066ff, #00d8ff); color: #fff;"><span>🖨️</span> Print PDF</button>
-        <button onclick="closeAuditDossier()" class="btn btn-simulate" style="background: #1e293b; color: #94a3b8;">Close</button>
-      </div>
-    </div>
-  </div>
+      document.querySelectorAll('.page-view').forEach(view => {
+        view.classList.remove('active');
+      });
+      const activeView = document.getElementById(`view-${tabId}`);
+      if (activeView) activeView.classList.add('active');
 
-  <!-- Floating IBM z/OS Terminal Drawer Toggle for Desktop -->
-  <button id="btn-toggle-terminal" class="terminal-toggle-btn" onclick="toggleTerminalDrawer()">
-    <span>📟</span> Mini Console Drawer
-  </button>
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      const activeDTab = document.getElementById(`dtab-${tabId}`);
+      if (activeDTab) activeDTab.classList.add('active');
 
-  <!-- Bottom Drawer Terminal -->
-  <div id="terminal-drawer">
-    <div style="background: #080d1a; padding: 10px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: space-between; align-items: center;">
-      <div style="font-size: 12.5px; font-weight: 700; color: #fff;">
-        <span style="color: var(--accent-cyan);">●</span> IBM z/OS Telemetry Stream [Drawer Mode]
-      </div>
-      <div style="display: flex; gap: 8px;">
-        <button class="log-filter-btn" onclick="clearTerminal()">[Clear]</button>
-        <button class="log-filter-btn" onclick="toggleTerminalDrawer()">[Close ✕]</button>
-      </div>
-    </div>
-    <div class="terminal-body" id="terminal-logs-drawer"></div>
-  </div>
+      document.querySelectorAll('.mobile-nav-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      const activeMTab = document.getElementById(`mtab-${tabId}`);
+      if (activeMTab) activeMTab.classList.add('active');
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-    // ================= 🎬 1-CLICK GUIDED DEMO TOUR =================
-    let tourCurrentStep = 0;
-    let tourAutoTimer = null;
-
-    const tourSteps = [
-      {
-        badge: "STEP 1 OF 5",
-        text: "Global Route Map: Ingesting live Db2 Change Data Capture transactions from IBM Z mainframe...",
-        action: () => {
-          switchTab('operations');
-        }
-      },
-      {
-        badge: "STEP 2 OF 5",
-        text: "Mid-Atlantic Corridor Slip: Injecting Slide 8 high-value disruption on Order #4471 ($1.9M Value at Risk)...",
-        action: async () => {
-          switchTab('operations');
-          await triggerSimulation();
-        }
-      },
-      {
-        badge: "STEP 3 OF 5",
-        text: "Incident Command Center: Reviewing Tree SHAP feature attribution & IBM Granite (s390x) rationale...",
-        action: () => {
-          switchTab('incident');
-        }
-      },
-      {
-        badge: "STEP 4 OF 5",
-        text: "Executing Mitigation: Committing two-phase closed-loop reroute to Frankfurt via z/OS Connect REST API (RC=0)...",
-        action: async () => {
-          switchTab('incident');
-          await executeZosAction();
-          setTimeout(() => { switchTab('operations'); }, 1200);
-        }
-      },
-      {
-        badge: "STEP 5 OF 5",
-        text: "Executive Governance: Official Compliance Audit Dossier generated with SHA-256 seal & ACID verification!",
-        action: () => {
-          switchTab('audit');
-        }
+      if (window.location.hash !== `#${tabId}`) {
+        history.replaceState(null, null, `#${tabId}`);
       }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Immediate & delayed map invalidation when switching to operations tab
+      if (tabId === 'operations' && window.map) {
+        setTimeout(() => { window.map.invalidateSize(); }, 50);
+        setTimeout(() => { window.map.invalidateSize(); }, 250);
+        setTimeout(() => { window.map.invalidateSize(); }, 600);
+      }
+
+      if (tabId === 'audit') {
+        loadDossierData();
+      }
+    }
+
+    window.addEventListener('load', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (['operations', 'incident', 'sandbox', 'audit', 'console'].includes(hash)) {
+        switchTab(hash);
+      }
+    });
+
+    // ================= LEAFLET DARK MAP (ROBUST RESIZING & CARTO DARK TILES) =================
+    const map = L.map('route-map', {
+      center: [38.0, -15.0],
+      zoom: 2,
+      minZoom: 1,
+      maxZoom: 7,
+      zoomControl: false,
+      attributionControl: false
+    });
+
+    window.map = map;
+
+    // Use CartoDB Dark Matter with retina {r} support (Highest reliability dark map)
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      subdomains: 'abcd',
+      maxZoom: 19
+    }).addTo(map);
+
+    // Multi-stage invalidation to guarantee full container render
+    setTimeout(() => { map.invalidateSize(); }, 50);
+    setTimeout(() => { map.invalidateSize(); }, 200);
+    setTimeout(() => { map.invalidateSize(); }, 500);
+    setTimeout(() => { map.invalidateSize(); }, 1200);
+
+    // ResizeObserver ensures map fills container on any layout or window resize
+    const mapContainerEl = document.getElementById('route-map');
+    if (mapContainerEl && window.ResizeObserver) {
+      const ro = new ResizeObserver(() => {
+        if (window.map) {
+          window.map.invalidateSize();
+        }
+      });
+      ro.observe(mapContainerEl);
+    }
+    window.addEventListener('resize', () => {
+      if (window.map) window.map.invalidateSize();
+    });
+
+    const hubs = {
+      ny: { name: "New York Hub (EE. UU. Origin)", coords: [40.7128, -74.0060] },
+      paris: { name: "Paris Central (Destination - France)", coords: [48.8566, 2.3522] },
+      frankfurt: { name: "Frankfurt Regional Hub (Supplier B)", coords: [50.1109, 8.6821] },
+      london: { name: "London Gateway Hub", coords: [51.5074, -0.1278] },
+      tokyo: { name: "Tokyo APAC Distribution Hub", coords: [35.6762, 139.6503] }
+    };
+
+    Object.values(hubs).forEach(h => {
+      L.circleMarker(h.coords, {
+        radius: 6,
+        color: '#00d8ff',
+        fillColor: '#00d8ff',
+        fillOpacity: 0.95,
+        weight: 2
+      }).addTo(map).bindTooltip(h.name, { permanent: false, direction: 'top' });
+    });
+
+    const routeUsaParis = L.polyline([hubs.ny.coords, hubs.paris.coords], {
+      color: '#00d8ff',
+      weight: 3.5,
+      opacity: 0.85,
+      dashArray: '6, 8'
+    }).addTo(map);
+
+    L.polyline([hubs.ny.coords, hubs.london.coords], { color: '#0066ff', weight: 2, opacity: 0.45 }).addTo(map);
+    L.polyline([hubs.london.coords, hubs.tokyo.coords], { color: '#0066ff', weight: 2, opacity: 0.45 }).addTo(map);
+
+    let disruptionMarker = null;
+    let rerouteLine = null;
+    let rerouteMarker = null;
+    let inspectMarker = null;
+
+    // ================= TRANSACTION STREAM & SEARCH FILTER =================
+    let streamList = [
+      { id: "TXN-88415", cat: "Medical Supplies", dest: "Germany", mode: "First Class", status: "NORMAL", val: "$3,800", risk: "14.2%" },
+      { id: "TXN-88414", cat: "Automotive Chips", dest: "Japan", mode: "Second Class", status: "NORMAL", val: "$12,400", risk: "22.5%" },
+      { id: "TXN-88413", cat: "Consumer Electronics", dest: "United Kingdom", mode: "Standard", status: "WARNING", val: "$4,150", risk: "58.1%" },
+      { id: "TXN-88412", cat: "Industrial Sensors", dest: "USA", mode: "Same Day", status: "NORMAL", val: "$1,600", risk: "11.0%" },
+      { id: "TXN-88411", cat: "Robotics Parts", dest: "Australia", mode: "Standard", status: "NORMAL", val: "$8,900", risk: "28.4%" }
     ];
 
-    function startGuidedTour() {
-      tourCurrentStep = 0;
-      const bar = document.getElementById("guided-tour-bar");
-      bar.style.display = "flex";
-      renderTourStep();
-    }
-
-    function renderTourStep() {
-      const step = tourSteps[tourCurrentStep];
-      document.getElementById("tour-step-badge").innerText = step.badge;
-      document.getElementById("tour-step-text").innerText = step.text;
-
-      const nextBtn = document.getElementById("tour-next-btn");
-      if (tourCurrentStep === tourSteps.length - 1) {
-        nextBtn.innerText = "Finish Tour ✓";
-      } else {
-        nextBtn.innerText = "Next Step ➔";
-      }
-
-      step.action();
-    }
-
-    function nextTourStep() {
-      if (tourCurrentStep < tourSteps.length - 1) {
-        tourCurrentStep++;
-        renderTourStep();
-      } else {
-        stopGuidedTour();
-      }
-    }
-
-    function stopGuidedTour() {
-      const bar = document.getElementById("guided-tour-bar");
-      if (bar) bar.style.display = "none";
-      clearTimeout(tourAutoTimer);
-    }
-
-    // ================= 📱 PHONE QR CODE MODAL =================
-    function openQrModal() {
-      const modal = document.getElementById("qr-modal");
-      const currentUrl = window.location.href;
-      document.getElementById("qr-url-display").innerText = currentUrl;
-      const qrImg = document.getElementById("qr-image");
-      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(currentUrl)}`;
-      modal.style.display = "flex";
-    }
-
-    function closeQrModal() {
-      document.getElementById("qr-modal").style.display = "none";
-    }
-
-    function copyQrUrl() {
-      navigator.clipboard.writeText(window.location.href);
-      alert("Dashboard URL copied to clipboard!");
-    }
-
-  
-    // ================= UPGRADE 1: ROI MODAL LOGIC =================
-    function openRoiModal() {
-      document.getElementById("roi-modal").style.display = "flex";
-    }
-    function closeRoiModal() {
-      document.getElementById("roi-modal").style.display = "none";
-    }
-
-    // ================= UPGRADE 4: TELUM MODAL LOGIC =================
-    function openTelumModal() {
-      document.getElementById("telum-modal").style.display = "flex";
-    }
-    function closeTelumModal() {
-      document.getElementById("telum-modal").style.display = "none";
-    }
-
-    // ================= UPGRADE 2: ASK GRANITE AI COPILOT LOGIC =================
-    let isCopilotOpen = false;
-
-    function toggleCopilot() {
-      isCopilotOpen = !isCopilotOpen;
-      const drawer = document.getElementById("copilot-drawer");
-      drawer.style.display = isCopilotOpen ? "flex" : "none";
-      if (isCopilotOpen) {
-        document.getElementById("copilot-input").focus();
-        scrollCopilotToBottom();
-      }
-    }
-
-    function scrollCopilotToBottom() {
-      const b = document.getElementById("copilot-messages");
-      if (b) b.scrollTop = b.scrollHeight;
-    }
-
-    function sendQuickCopilot(text) {
-      document.getElementById("copilot-input").value = text;
-      sendCopilotMsg();
-    }
-
-    async function sendCopilotMsg() {
-      const input = document.getElementById("copilot-input");
-      const msg = input.value.trim();
-      if (!msg) return;
-
-      input.value = "";
-      const body = document.getElementById("copilot-messages");
-
-      // Append user bubble
-      const userDiv = document.createElement("div");
-      userDiv.className = "copilot-msg user";
-      userDiv.innerText = msg;
-      body.appendChild(userDiv);
-      scrollCopilotToBottom();
-
-      // Show typing indicator
-      const typingDiv = document.createElement("div");
-      typingDiv.className = "copilot-msg bot";
-      typingDiv.innerHTML = "<em>IBM Granite is formulating s390x synthesis...</em>";
-      body.appendChild(typingDiv);
-      scrollCopilotToBottom();
-
-      try {
-        const res = await fetch('/api/copilot/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: msg, order_id: 4471 })
-        });
-        const data = await res.json();
-
-        typingDiv.innerHTML = `
-          <div>${data.response}</div>
-          <div style="margin-top: 8px; font-size: 10.5px; font-family: var(--font-mono); color: var(--accent-cyan); display: flex; gap: 8px; flex-wrap: wrap;">
-            <span>⚡ ${data.model}</span>
-            <span>⏱️ ${data.decision_latency_ms}ms</span>
-          </div>
-        `;
-      } catch (e) {
-        // High-fidelity fallback
-        typingDiv.innerHTML = `
-          <div>IBM Granite (s390x): Transaction evaluated under Db2 CDC stream. Order #4471 risk is 87.0% (Critical). Reroute to Supplier B protects $1.7M with ACID commit.</div>
-          <div style="margin-top: 6px; font-size: 10.5px; color: var(--accent-cyan); font-family: var(--font-mono);">Fallback Engine: Local Granite Model</div>
-        `;
-      }
-      scrollCopilotToBottom();
-    }
-
-    // ================= UPGRADE 3: CLICK-TO-INSPECT & TABLE SEARCH =================
+    let orderCounter = 88416;
+    let totalTxns = 14892;
     let streamFilterStatus = 'ALL';
     let streamSearchQuery = '';
+
+    const catalog = [
+      { cat: "Automotive Chips", dest: "Germany", mode: "Second Class", baseVal: 7500, riskBase: 24 },
+      { cat: "Aerospace Avionics", dest: "USA", mode: "First Class", baseVal: 18200, riskBase: 16 },
+      { cat: "Consumer Electronics", dest: "United Kingdom", mode: "Standard", baseVal: 3200, riskBase: 54 },
+      { cat: "Medical Devices", dest: "Japan", mode: "First Class", baseVal: 9400, riskBase: 19 },
+      { cat: "Industrial Controllers", dest: "Australia", mode: "Standard", baseVal: 6100, riskBase: 31 },
+      { cat: "Telecom Switches", dest: "Canada", mode: "Second Class", baseVal: 4800, riskBase: 28 },
+      { cat: "Power Microchips", dest: "Mexico", mode: "Standard", baseVal: 2900, riskBase: 61 }
+    ];
 
     function setStreamFilter(status) {
       streamFilterStatus = status;
@@ -2736,13 +2190,9 @@
       `).join('');
     }
 
-    // Replace previous renderStream with filtered stream
-    renderStream = renderFilteredStream;
-
-    let inspectMarker = null;
+    renderFilteredStream();
 
     function inspectOrder(id, cat, dest, val, risk, status) {
-      // Coordinate lookup for popular destinations
       const destCoords = {
         'Germany': [51.1657, 10.4515],
         'Japan': [36.2048, 138.2529],
@@ -2755,7 +2205,6 @@
       };
 
       const coords = destCoords[dest] || [48.8566, 2.3522];
-      
       if (inspectMarker) map.removeLayer(inspectMarker);
 
       const color = status === 'CRITICAL' ? '#ff3366' : status === 'WARNING' ? '#ff9100' : '#00d8ff';
@@ -2763,7 +2212,7 @@
         radius: 8,
         color: color,
         fillColor: color,
-        fillOpacity: 0.9,
+        fillOpacity: 0.95,
         weight: 2
       }).addTo(map);
 
@@ -2779,246 +2228,7 @@
       map.flyTo(coords, 3, { duration: 1.2 });
     }
 
-  </script>
-  <script>
-    // ================= VIEW NAVIGATION (MULTI-PAGE ENGINE) =================
-    let currentTab = 'operations';
-
-    function switchTab(tabId) {
-      currentTab = tabId;
-
-      // Update View Sections
-      document.querySelectorAll('.page-view').forEach(view => {
-        view.classList.remove('active');
-      });
-      const activeView = document.getElementById(`view-${tabId}`);
-      if (activeView) activeView.classList.add('active');
-
-      // Update Desktop Nav Tabs
-      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-      const activeDTab = document.getElementById(`dtab-${tabId}`);
-      if (activeDTab) activeDTab.classList.add('active');
-
-      // Update Mobile Nav Items
-      document.querySelectorAll('.mobile-nav-item').forEach(item => {
-        item.classList.remove('active');
-      });
-      const activeMTab = document.getElementById(`mtab-${tabId}`);
-      if (activeMTab) activeMTab.classList.add('active');
-
-      // Sync URL hash for bookmarking & browser back/forward
-      if (window.location.hash !== `#${tabId}`) {
-        history.replaceState(null, null, `#${tabId}`);
-      }
-
-      // Smooth scroll to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      // Invalidate Leaflet Map size when returning to Operations view
-      if (tabId === 'operations' && window.map) {
-        setTimeout(() => { map.invalidateSize(); }, 200);
-      }
-
-      // If switching to Audit view, auto-load dossier data
-      if (tabId === 'audit') {
-        loadDossierData();
-      }
-    }
-
-    // Hash-based routing listener
-    window.addEventListener('load', () => {
-      const hash = window.location.hash.replace('#', '');
-      if (['operations', 'incident', 'sandbox', 'audit', 'console'].includes(hash)) {
-        switchTab(hash);
-      }
-    });
-
-    // ================= LEAFLET DARK ROUTE MAP =================
-    const map = L.map('route-map', {
-      center: [38.0, -15.0],
-      zoom: 2,
-      minZoom: 1,
-      maxZoom: 6,
-      zoomControl: false,
-      attributionControl: false
-    });
-
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-      maxZoom: 16,
-      attribution: 'Esri Canvas Dark'
-    }).addTo(map);
-
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
-      maxZoom: 16,
-      opacity: 0.55
-    }).addTo(map);
-
-    setTimeout(() => { map.invalidateSize(); }, 300);
-
-    const hubs = {
-      ny: { name: "New York Hub (EE. UU. Origin)", coords: [40.7128, -74.0060] },
-      paris: { name: "Paris Central (Destination - France)", coords: [48.8566, 2.3522] },
-      frankfurt: { name: "Frankfurt Regional Hub (Supplier B)", coords: [50.1109, 8.6821] },
-      london: { name: "London Gateway Hub", coords: [51.5074, -0.1278] },
-      tokyo: { name: "Tokyo APAC Hub", coords: [35.6762, 139.6503] }
-    };
-
-    Object.values(hubs).forEach(h => {
-      L.circleMarker(h.coords, {
-        radius: 5,
-        color: '#00d8ff',
-        fillColor: '#00d8ff',
-        fillOpacity: 0.9,
-        weight: 2
-      }).addTo(map).bindTooltip(h.name, { permanent: false, direction: 'top' });
-    });
-
-    const routeUsaParis = L.polyline([hubs.ny.coords, hubs.paris.coords], {
-      color: '#00d8ff',
-      weight: 3,
-      opacity: 0.85,
-      dashArray: '6, 8'
-    }).addTo(map);
-
-    L.polyline([hubs.ny.coords, hubs.london.coords], { color: '#0066ff', weight: 2, opacity: 0.4 }).addTo(map);
-    L.polyline([hubs.london.coords, hubs.tokyo.coords], { color: '#0066ff', weight: 2, opacity: 0.4 }).addTo(map);
-
-    let disruptionMarker = null;
-    let rerouteLine = null;
-    let rerouteMarker = null;
-
-    // ================= TRANSACTION STREAM =================
-    let streamList = [
-      { id: "TXN-88415", cat: "Medical Supplies", dest: "Germany", mode: "First Class", status: "NORMAL", val: "$3,800", risk: "14.2%" },
-      { id: "TXN-88414", cat: "Automotive Chips", dest: "Japan", mode: "Second Class", status: "NORMAL", val: "$12,400", risk: "22.5%" },
-      { id: "TXN-88413", cat: "Consumer Electronics", dest: "United Kingdom", mode: "Standard", status: "WARNING", val: "$4,150", risk: "58.1%" },
-      { id: "TXN-88412", cat: "Industrial Sensors", dest: "USA", mode: "Same Day", status: "NORMAL", val: "$1,600", risk: "11.0%" },
-      { id: "TXN-88411", cat: "Robotics Parts", dest: "Australia", mode: "Standard", status: "NORMAL", val: "$8,900", risk: "28.4%" }
-    ];
-
-    let orderCounter = 88416;
-    let totalTxns = 14892;
-
-    const catalog = [
-      { cat: "Automotive Chips", dest: "Germany", mode: "Second Class", baseVal: 7500, riskBase: 24 },
-      { cat: "Aerospace Avionics", dest: "USA", mode: "First Class", baseVal: 18200, riskBase: 16 },
-      { cat: "Consumer Electronics", dest: "United Kingdom", mode: "Standard", baseVal: 3200, riskBase: 54 },
-      { cat: "Medical Devices", dest: "Japan", mode: "First Class", baseVal: 9400, riskBase: 19 },
-      { cat: "Industrial Controllers", dest: "Australia", mode: "Standard", baseVal: 6100, riskBase: 31 },
-      { cat: "Telecom Switches", dest: "Canada", mode: "Second Class", baseVal: 4800, riskBase: 28 },
-      { cat: "Power Microchips", dest: "Mexico", mode: "Standard", baseVal: 2900, riskBase: 61 }
-    ];
-
-    function renderStream() {
-      const tbody = document.getElementById("stream-body");
-      if (!tbody) return;
-      tbody.innerHTML = streamList.slice(0, 8).map(item => `
-        <tr>
-          <td><strong style="color: #93c5fd;">${item.id}</strong></td>
-          <td>${item.cat}</td>
-          <td>${item.dest}</td>
-          <td><span style="font-size: 11px; color: var(--text-muted);">${item.mode}</span></td>
-          <td><span class="badge badge-${item.status.toLowerCase()}">${item.status}</span></td>
-          <td>${item.val}</td>
-          <td style="color: ${item.status === 'CRITICAL' ? 'var(--accent-red)' : item.status === 'WARNING' ? 'var(--accent-orange)' : 'var(--accent-green)'}; font-weight: 700; font-family: var(--font-mono);">${item.risk}</td>
-        </tr>
-      `).join('');
-    }
-    renderStream();
-
-    // ================= MAINFRAME TELEMETRY LOGS =================
-    let allLogs = [];
-    let currentFilter = 'ALL';
-    let autoScrollLogs = true;
-
-    function getFormattedTimestamp() {
-      const now = new Date();
-      return now.toTimeString().split(' ')[0] + '.' + String(now.getMilliseconds()).padStart(3, '0');
-    }
-
-    function appendLog(pfx, pfxClass, msg) {
-      const ts = getFormattedTimestamp();
-      const logObj = { ts, pfx, pfxClass, msg };
-      allLogs.push(logObj);
-      if (allLogs.length > 300) allLogs.shift();
-
-      renderLogs();
-    }
-
-    function renderLogs() {
-      const mainContainer = document.getElementById("terminal-logs-main");
-      const drawerContainer = document.getElementById("terminal-logs-drawer");
-
-      const filtered = allLogs.filter(log => {
-        if (currentFilter === 'ALL') return true;
-        if (currentFilter === 'CDC' && log.pfxClass.includes('cdc')) return true;
-        if (currentFilter === 'RACF' && log.pfxClass.includes('racf')) return true;
-        if (currentFilter === 'DB2' && log.pfxClass.includes('db2')) return true;
-        if (currentFilter === 'AI' && log.pfxClass.includes('ai')) return true;
-        if (currentFilter === 'CRIT' && log.pfxClass.includes('crit')) return true;
-        return false;
-      });
-
-      const html = filtered.map(log => `
-        <div class="log-line">
-          <span class="log-ts">[${log.ts}]</span>
-          <span class="log-pfx ${log.pfxClass}">[${log.pfx}]</span>
-          <span>${log.msg}</span>
-        </div>
-      `).join('');
-
-      if (mainContainer) {
-        mainContainer.innerHTML = html;
-        if (autoScrollLogs) mainContainer.scrollTop = mainContainer.scrollHeight;
-      }
-      if (drawerContainer) {
-        drawerContainer.innerHTML = html;
-        if (autoScrollLogs) drawerContainer.scrollTop = drawerContainer.scrollHeight;
-      }
-    }
-
-    function filterLogs(filterName) {
-      currentFilter = filterName;
-      document.querySelectorAll('.log-filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.innerText === filterName) btn.classList.add('active');
-      });
-      renderLogs();
-    }
-
-    function clearTerminal() {
-      allLogs = [];
-      renderLogs();
-    }
-
-    function toggleAutoScroll() {
-      autoScrollLogs = !autoScrollLogs;
-      const label = autoScrollLogs ? "[Auto-Scroll: ON]" : "[Auto-Scroll: OFF]";
-      const b = document.getElementById("term-scroll-btn-main");
-      if (b) b.innerText = label;
-    }
-
-    let isDrawerOpen = false;
-    function toggleTerminalDrawer() {
-      isDrawerOpen = !isDrawerOpen;
-      const drawer = document.getElementById("terminal-drawer");
-      drawer.style.display = isDrawerOpen ? "flex" : "none";
-      if (isDrawerOpen) renderLogs();
-    }
-
-    // Initial Mainframe Boot Sequence
-    setTimeout(() => {
-      appendLog("IPL-ZOS", "pfx-zos", "IBM z/OS v2.5 IPL complete on LPAR LINUXONE-S390X (16 IFLs active, 512GB Memory)");
-      appendLog("DB2-DATA-GATE", "pfx-db2", "IBM Db2 Data Gate synchronization link ESTABLISHED to LinuxONE");
-      appendLog("RACF-SEC", "pfx-racf", "RACF security environment active: Class APPL, User CSOPER1 verified (AUTH=SYSADM)");
-      appendLog("ZOS-CONNECT", "pfx-zos", "z/OS Connect EE v3.0 REST Gateway active on port 9080");
-      appendLog("CS-AI-INIT", "pfx-ai", "ChainSentinel LangGraph multi-agent engine online (Detection, Risk, Recommendation, Explanation)");
-      appendLog("DSNI005I", "pfx-cdc", "Db2 for z/OS CDC stream active on topic 'db2.supplychain.orders' (throughput: 14,892 msg/s)");
-    }, 300);
-
-    // Auto-stream periodic transactions
+    // Auto-stream realistic transactions every 3.2s
     setInterval(() => {
       const sample = catalog[Math.floor(Math.random() * catalog.length)];
       const riskVariance = (Math.random() * 8 - 4);
@@ -3044,10 +2254,82 @@
       });
 
       if (streamList.length > 15) streamList.pop();
-      renderStream();
+      renderFilteredStream();
 
       appendLog("DSNI005I", "pfx-cdc", `Db2-CDC capture: order ${txnId} committed on subsystem DB2P (${sample.cat} -> ${sample.dest}, ${txnVal}, risk=${riskVal}%)`);
     }, 3200);
+
+    // ================= MAINFRAME TELEMETRY LOGS =================
+    let allLogs = [];
+    let currentFilter = 'ALL';
+    let autoScrollLogs = true;
+
+    function getFormattedTimestamp() {
+      const now = new Date();
+      return now.toTimeString().split(' ')[0] + '.' + String(now.getMilliseconds()).padStart(3, '0');
+    }
+
+    function appendLog(pfx, pfxClass, msg) {
+      const ts = getFormattedTimestamp();
+      allLogs.push({ ts, pfx, pfxClass, msg });
+      if (allLogs.length > 300) allLogs.shift();
+      renderLogs();
+    }
+
+    function renderLogs() {
+      const mainContainer = document.getElementById("terminal-logs-main");
+      if (!mainContainer) return;
+
+      const filtered = allLogs.filter(log => {
+        if (currentFilter === 'ALL') return true;
+        if (currentFilter === 'CDC' && log.pfxClass.includes('cdc')) return true;
+        if (currentFilter === 'RACF' && log.pfxClass.includes('racf')) return true;
+        if (currentFilter === 'DB2' && log.pfxClass.includes('db2')) return true;
+        if (currentFilter === 'AI' && log.pfxClass.includes('ai')) return true;
+        if (currentFilter === 'CRIT' && log.pfxClass.includes('crit')) return true;
+        return false;
+      });
+
+      mainContainer.innerHTML = filtered.map(log => `
+        <div class="log-line">
+          <span class="log-ts">[${log.ts}]</span>
+          <span class="log-pfx ${log.pfxClass}">[${log.pfx}]</span>
+          <span>${log.msg}</span>
+        </div>
+      `).join('');
+
+      if (autoScrollLogs) mainContainer.scrollTop = mainContainer.scrollHeight;
+    }
+
+    function filterLogs(filterName) {
+      currentFilter = filterName;
+      document.querySelectorAll('.log-filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.innerText === filterName) btn.classList.add('active');
+      });
+      renderLogs();
+    }
+
+    function clearTerminal() {
+      allLogs = [];
+      renderLogs();
+    }
+
+    function toggleAutoScroll() {
+      autoScrollLogs = !autoScrollLogs;
+      const b = document.getElementById("term-scroll-btn-main");
+      if (b) b.innerText = autoScrollLogs ? "[Auto-Scroll: ON]" : "[Auto-Scroll: OFF]";
+    }
+
+    // Initial Mainframe Boot Sequence
+    setTimeout(() => {
+      appendLog("IPL-ZOS", "pfx-zos", "IBM z/OS v2.5 IPL complete on LPAR LINUXONE-S390X (16 IFLs active, 512GB Memory)");
+      appendLog("DB2-DATA-GATE", "pfx-db2", "IBM Db2 Data Gate synchronization link ESTABLISHED to LinuxONE");
+      appendLog("RACF-SEC", "pfx-racf", "RACF security environment active: Class APPL, User CSOPER1 verified (AUTH=SYSADM)");
+      appendLog("ZOS-CONNECT", "pfx-zos", "z/OS Connect EE v3.0 REST Gateway active on port 9080");
+      appendLog("CS-AI-INIT", "pfx-ai", "ChainSentinel LangGraph multi-agent engine online (Detection, Risk, Recommendation, Explanation)");
+      appendLog("DSNI005I", "pfx-cdc", "Db2 for z/OS CDC stream active on topic 'db2.supplychain.orders' (throughput: 14,892 msg/s)");
+    }, 300);
 
     // ================= SLIDE 8 SIMULATION =================
     async function triggerSimulation() {
@@ -3067,55 +2349,21 @@
         clearInterval(interval);
         banner.style.display = "none";
 
-        const prob = data.risk ? data.risk.late_delivery_probability : (data.late_delivery_probability || 0.87);
-        const explanation = data.explanation || data.genai_explanation;
+        const prob = data.risk ? data.risk.late_delivery_probability : 0.87;
+        const explanation = data.explanation || "High risk: Supplier A is 36 hours late. Recommended: Shift 60% of volume to Supplier B and reroute shipment 4471.";
 
-        appendLog("DSNI042I", "pfx-crit", `HIGH-VALUE TRANSACTION ALERT: Order #${data.order_id} for ${data.product_name} ($1,900,000.00)`);
-        appendLog("CS-AI-01I", "pfx-ai", `DetectionAgent: Anomaly score=0.50 confirmed (threshold $3,000 exceeded)`);
-        appendLog("CS-AI-02I", "pfx-crit", `RiskAgent: XGBoost late delivery probability scored ${(prob*100).toFixed(0)}% (CRITICAL DISRUPTION)`);
-        appendLog("CS-AI-03I", "pfx-ai", `ExplanationAgent: IBM Granite (s390x) generated executive prescriptive strategy in 11.4ms`);
+        appendLog("DSNI042I", "pfx-crit", `HIGH-VALUE TRANSACTION ALERT: Order #${data.order_id} ($1,900,000.00)`);
+        appendLog("CS-AI-01I", "pfx-ai", `DetectionAgent: Anomaly score=0.50 confirmed`);
+        appendLog("CS-AI-02I", "pfx-crit", `RiskAgent: XGBoost late delivery probability scored ${(prob*100).toFixed(0)}% (CRITICAL)`);
+        appendLog("CS-AI-03I", "pfx-ai", `ExplanationAgent: IBM Granite (s390x) generated executive prescriptive strategy`);
         appendLog("CS-AI-04I", "pfx-zos", `RecommendationAgent: Action #1 ranked - SHIFT_SUPPLIER_VOLUME to Frankfurt Hub`);
 
-        // Update Incident Card
         document.getElementById("inc-title").innerText = `Order #${data.order_id} - ${data.product_name}`;
         document.getElementById("inc-meta").innerText = `Origin: EE. UU. → Destination: ${data.order_country} (${data.shipping_mode})`;
         document.getElementById("inc-score").innerText = `${(prob * 100).toFixed(0)}%`;
         document.getElementById("inc-genai").innerText = explanation;
         document.getElementById("kpi-protected").innerText = "$1,900,000";
         document.getElementById("kpi-alerts").innerText = "1";
-
-        // Show mobile floating pill
-        const mPill = document.getElementById("mobile-incident-pill");
-        if (mPill) mPill.style.display = "flex";
-
-        // Update XAI SHAP Driver Bars
-        if (data.risk && data.risk.risk_drivers && data.risk.risk_drivers.length > 0) {
-          const xaiContainer = document.getElementById("xai-drivers-list");
-          xaiContainer.innerHTML = data.risk.risk_drivers.map(d => {
-            const isDanger = d.direction === "INCREASES_RISK";
-            const badgeClass = isDanger ? "danger" : "safe";
-            const sign = isDanger ? "+" : "-";
-            return `
-              <div class="driver-item">
-                <div class="driver-top">
-                  <span class="driver-name">● ${d.feature}</span>
-                  <span class="driver-pct ${badgeClass}">${sign}${d.impact_pct}% Risk</span>
-                </div>
-                <div class="driver-bar-bg">
-                  <div class="driver-bar-fill ${badgeClass}" style="width: ${d.impact_pct}%;"></div>
-                </div>
-                <div class="driver-subtext">${d.description}</div>
-              </div>
-            `;
-          }).join('');
-        }
-
-        // Reset CTA button
-        const btn = document.getElementById("btn-approve");
-        btn.innerText = "✓ Approve & Execute via z/OS Connect API";
-        btn.style.background = "linear-gradient(135deg, #00e676, #00b0ff)";
-        btn.style.color = "#000";
-        btn.disabled = false;
 
         // Map animation
         if (rerouteLine) { map.removeLayer(rerouteLine); rerouteLine = null; }
@@ -3125,7 +2373,7 @@
         routeUsaParis.setStyle({ color: '#ff3366', weight: 4, opacity: 0.95, dashArray: '6, 6' });
 
         disruptionMarker = L.circleMarker([46.0, -38.0], {
-          radius: 9,
+          radius: 10,
           color: '#ff3366',
           fillColor: '#ff3366',
           fillOpacity: 0.95,
@@ -3153,19 +2401,17 @@
           val: "$1,900,000",
           risk: `${(prob * 100).toFixed(1)}%`
         });
-        renderStream();
+        renderFilteredStream();
 
-        // Show toast
         const toast = document.getElementById("toast");
-        document.getElementById("toast-msg").innerText = "Order #4471 ($1.9M) flagged as Critical. Triage ready in Incident tab.";
-        document.getElementById("toast-txnid").innerText = "Action required: Execute z/OS Connect mitigation";
+        document.getElementById("toast-msg").innerText = "Order #4471 ($1.9M) flagged Critical. Switch to Active Incident to resolve.";
+        document.getElementById("toast-txnid").innerText = "Mainframe status: Awaiting z/OS Connect authorization";
         toast.style.display = "block";
         setTimeout(() => { toast.style.display = "none"; }, 5000);
 
       } catch (e) {
         clearInterval(interval);
         banner.style.display = "none";
-        alert("Disruption simulated locally!");
       }
     }
 
@@ -3186,22 +2432,16 @@
         });
         const result = await res.json();
 
-        appendLog("BAQ0001I", "pfx-zos", `z/OS Connect REST API received POST /api/zos-connect/execute [User=CSOPER1]`);
+        appendLog("BAQ0001I", "pfx-zos", `z/OS Connect REST API received POST /api/zos-connect/execute`);
         appendLog("ICH408I", "pfx-racf", `RACF USER=CSOPER1 GROUP=SUPPLY APPL=ZOSCONN - ACCESS PERMITTED (AUTH_LEVEL=OPERATOR)`);
         appendLog("DSNI031I", "pfx-db2", `Db2 SQL EXEC: UPDATE ORDERS SET ROUTE='FRANKFURT_HUB', VENDOR='SUPPLIER_B', STATUS='REROUTED' WHERE ORDER_ID=4471;`);
-        appendLog("DSNT375I", "pfx-racf", `TWO-PHASE COMMIT COMPLETED (ACID COMPLIANT) - SQLCODE=0, SQLSTATE=00000, ROWS_AFFECTED=1`);
-        appendLog("BAQ0002I", "pfx-zos", `z/OS Connect Gateway Response 200 OK committed [TXN_ID=${result.zos_connect_transaction_id}, RC=0000]`);
+        appendLog("DSNT375I", "pfx-racf", `TWO-PHASE COMMIT COMPLETED (ACID COMPLIANT) - SQLCODE=0, SQLSTATE=00000`);
 
         btn.innerText = "✓ Action Executed & Committed";
         btn.style.background = "#334155";
         btn.style.color = "#94a3b8";
         btn.disabled = true;
 
-        // Hide mobile incident pill once resolved
-        const mPill = document.getElementById("mobile-incident-pill");
-        if (mPill) mPill.style.display = "none";
-
-        // Green reroute on map
         if (rerouteLine) map.removeLayer(rerouteLine);
         rerouteLine = L.polyline([hubs.ny.coords, hubs.frankfurt.coords], {
           color: '#00e676',
@@ -3221,14 +2461,13 @@
 
         rerouteMarker.bindPopup(`
           <div style="font-family: Outfit, sans-serif; min-width: 180px;">
-            <div style="color: #00e676; font-weight: 700; font-size: 13px; margin-bottom: 3px;">✓ z/OS Commit Confirmed</div>
+            <div style="color: #00e676; font-weight: 700; font-size: 13px;">✓ z/OS Commit Confirmed</div>
             <div style="color: #f1f5f9; font-weight: 600; font-size: 12px;">Frankfurt Hub (Supplier B)</div>
-            <div style="color: #94a3b8; font-size: 11px; margin-top: 2px;">60% Shifted • Db2 RC=0</div>
-            <div style="color: #00d8ff; font-weight: 600; font-size: 11px; margin-top: 4px;">$1.7M Protected • SLA Restored</div>
+            <div style="color: #94a3b8; font-size: 11px;">60% Shifted • Db2 RC=0</div>
+            <div style="color: #00d8ff; font-weight: 600; font-size: 11px; margin-top: 3px;">$1.7M Protected • SLA Restored</div>
           </div>
         `).openPopup();
 
-        // Show toast
         const toast = document.getElementById("toast");
         document.getElementById("toast-msg").innerText = result.mainframe_audit_log;
         document.getElementById("toast-txnid").innerText = `Transaction ID: ${result.zos_connect_transaction_id} (RC=${result.db2_return_code})`;
@@ -3244,7 +2483,6 @@
     let whatIfDebounce = null;
     let latestWhatIfData = null;
 
-    // Extra Feature: One-touch Preset Scenarios
     function applyPreset(presetType) {
       document.querySelectorAll('.preset-chip').forEach(c => c.classList.remove('active'));
       event.currentTarget.classList.add('active');
@@ -3327,21 +2565,11 @@
           const status = isCritical ? "CRITICAL" : isWarning ? "WARNING" : "NORMAL";
 
           latestWhatIfData = {
-            prob: prob,
-            status: status,
-            dollarRisk: dollarRisk,
-            sales: sales,
-            mode: mode,
-            delay: delay,
-            sla: sla,
+            prob, status, dollarRisk, sales, mode, delay, sla,
             fastest: data.risk.fastest_predicted_days || 1,
             normal: data.risk.normal_predicted_days || Math.max(2, sla),
-            explanation: data.explanation,
-            drivers: data.risk.risk_drivers,
-            recommendations: data.recommendations
+            explanation: data.explanation
           };
-
-          appendLog("CS-AI-SIM", "pfx-ai", `What-If stress test: ${mode}, delay=${delay}h, val=$${sales.toLocaleString()} (Result: ${(prob*100).toFixed(1)}% ${status})`);
 
           const probEl = document.getElementById("whatif-prob");
           probEl.innerText = `${(prob * 100).toFixed(1)}%`;
@@ -3355,17 +2583,8 @@
           document.getElementById("whatif-days").innerText = `${latestWhatIfData.fastest} - ${latestWhatIfData.normal} Days`;
           document.getElementById("whatif-lat").innerText = `${(t1 - t0).toFixed(1)} ms`;
 
-          const stratEl = document.getElementById("whatif-strategy");
-          if (isCritical) {
-            stratEl.innerText = "Shift 60% volume to verified secondary Supplier B (Frankfurt) and reroute via z/OS Connect API.";
-          } else if (isWarning) {
-            stratEl.innerText = "SLA buffer tight: expedite carrier tier or monitor Db2 inventory buffer at destination hub.";
-          } else {
-            stratEl.innerText = "Standard fulfillment parameters: order on-schedule, no mainframe reroute intervention required.";
-          }
-
         } catch (e) {
-          console.error("What-if evaluation failed:", e);
+          console.error("What-if failed:", e);
         }
       }, 120);
     }
@@ -3373,7 +2592,6 @@
     function applyWhatIfToIncident() {
       if (!latestWhatIfData) return;
       const d = latestWhatIfData;
-      
       document.getElementById("inc-score").innerText = `${(d.prob * 100).toFixed(0)}%`;
       document.getElementById("inc-meta").innerText = `Origin: EE. UU. → Destination: France (${d.mode})`;
       document.getElementById("incident-badge").className = `badge badge-${d.status.toLowerCase()}`;
@@ -3381,35 +2599,12 @@
       document.getElementById("kpi-protected").innerText = `$${d.sales.toLocaleString()}`;
       document.getElementById("inc-genai").innerText = d.explanation;
 
-      // Update Map
-      if (d.prob >= 0.50) {
-        routeUsaParis.setStyle({ color: '#ff3366', weight: 4, opacity: 0.95, dashArray: '6, 6' });
-        if (!disruptionMarker) {
-          disruptionMarker = L.circleMarker([46.0, -38.0], {
-            radius: 9, color: '#ff3366', fillColor: '#ff3366', fillOpacity: 0.95, weight: 3
-          }).addTo(map);
-        }
-      } else {
-        routeUsaParis.setStyle({ color: '#00d8ff', weight: 3, opacity: 0.85, dashArray: '6, 8' });
-        if (disruptionMarker) { map.removeLayer(disruptionMarker); disruptionMarker = null; }
-        if (rerouteLine) { map.removeLayer(rerouteLine); rerouteLine = null; }
-        if (rerouteMarker) { map.removeLayer(rerouteMarker); rerouteMarker = null; }
-      }
-
-      const toast = document.getElementById("toast");
-      document.getElementById("toast-msg").innerText = `Applied What-If parameters: ${d.mode}, ${d.delay}h delay, $${d.sales.toLocaleString()} Value.`;
-      document.getElementById("toast-txnid").innerText = `Risk Level: ${(d.prob * 100).toFixed(1)}% (${d.status})`;
-      toast.style.display = "block";
-      setTimeout(() => { toast.style.display = "none"; }, 4000);
-
-      // Jump to Incident tab to see result
       switchTab('incident');
     }
 
-    // Initialize what-if
     updateWhatIf();
 
-    // ================= AUDIT VAULT & DOSSIER LOGIC =================
+    // ================= AUDIT VAULT =================
     let currentDossierData = null;
 
     async function loadDossierData() {
@@ -3418,7 +2613,6 @@
         const data = await res.json();
         currentDossierData = data;
 
-        // Populate dedicated View 4
         document.getElementById("doss-orderid").innerText = `Order #${data.order.order_id}`;
         document.getElementById("doss-category").innerText = data.order.product_name;
         document.getElementById("doss-value").innerText = `$${data.order.order_value.toLocaleString()}`;
@@ -3433,30 +2627,12 @@
         document.getElementById("doss-txnid").innerText = data.mainframe_audit_trail.zos_connect_gateway_transaction;
         document.getElementById("doss-hash").innerText = data.mainframe_audit_trail.security_hash;
 
-        // Also populate modal
-        document.getElementById("modal-doss-orderid").innerText = `Order #${data.order.order_id}`;
-        document.getElementById("modal-doss-category").innerText = data.order.product_name;
-        document.getElementById("modal-doss-value").innerText = `$${data.order.order_value.toLocaleString()}`;
-        document.getElementById("modal-doss-prob").innerText = `${(risk.late_delivery_probability * 100).toFixed(1)}% (${risk.alert_level})`;
-        document.getElementById("modal-doss-hash").innerText = data.mainframe_audit_trail.security_hash;
-
       } catch (e) {
         console.error("Failed to load audit dossier:", e);
       }
     }
 
-    function openAuditDossier() {
-      loadDossierData();
-      document.getElementById("dossier-modal").style.display = "flex";
-    }
-
-    function closeAuditDossier() {
-      document.getElementById("dossier-modal").style.display = "none";
-    }
-
-    function printDossier() {
-      window.print();
-    }
+    function printDossier() { window.print(); }
 
     function downloadDossierJson() {
       if (!currentDossierData) return;
@@ -3468,141 +2644,37 @@
       downloadAnchor.click();
       downloadAnchor.remove();
     }
-  
-    // ================= 🎬 1-CLICK GUIDED DEMO TOUR =================
-    let tourCurrentStep = 0;
-    let tourAutoTimer = null;
 
-    const tourSteps = [
-      {
-        badge: "STEP 1 OF 5",
-        text: "Global Route Map: Ingesting live Db2 Change Data Capture transactions from IBM Z mainframe...",
-        action: () => {
-          switchTab('operations');
-        }
-      },
-      {
-        badge: "STEP 2 OF 5",
-        text: "Mid-Atlantic Corridor Slip: Injecting Slide 8 high-value disruption on Order #4471 ($1.9M Value at Risk)...",
-        action: async () => {
-          switchTab('operations');
-          await triggerSimulation();
-        }
-      },
-      {
-        badge: "STEP 3 OF 5",
-        text: "Incident Command Center: Reviewing Tree SHAP feature attribution & IBM Granite (s390x) rationale...",
-        action: () => {
-          switchTab('incident');
-        }
-      },
-      {
-        badge: "STEP 4 OF 5",
-        text: "Executing Mitigation: Committing two-phase closed-loop reroute to Frankfurt via z/OS Connect REST API (RC=0)...",
-        action: async () => {
-          switchTab('incident');
-          await executeZosAction();
-          setTimeout(() => { switchTab('operations'); }, 1200);
-        }
-      },
-      {
-        badge: "STEP 5 OF 5",
-        text: "Executive Governance: Official Compliance Audit Dossier generated with SHA-256 seal & ACID verification!",
-        action: () => {
-          switchTab('audit');
-        }
-      }
-    ];
+    // ================= MODALS & COPILOT =================
+    function openRoiModal() { document.getElementById("roi-modal").style.display = "flex"; }
+    function closeRoiModal() { document.getElementById("roi-modal").style.display = "none"; }
 
-    function startGuidedTour() {
-      tourCurrentStep = 0;
-      const bar = document.getElementById("guided-tour-bar");
-      bar.style.display = "flex";
-      renderTourStep();
-    }
+    function openTelumModal() { document.getElementById("telum-modal").style.display = "flex"; }
+    function closeTelumModal() { document.getElementById("telum-modal").style.display = "none"; }
 
-    function renderTourStep() {
-      const step = tourSteps[tourCurrentStep];
-      document.getElementById("tour-step-badge").innerText = step.badge;
-      document.getElementById("tour-step-text").innerText = step.text;
-
-      const nextBtn = document.getElementById("tour-next-btn");
-      if (tourCurrentStep === tourSteps.length - 1) {
-        nextBtn.innerText = "Finish Tour ✓";
-      } else {
-        nextBtn.innerText = "Next Step ➔";
-      }
-
-      step.action();
-    }
-
-    function nextTourStep() {
-      if (tourCurrentStep < tourSteps.length - 1) {
-        tourCurrentStep++;
-        renderTourStep();
-      } else {
-        stopGuidedTour();
-      }
-    }
-
-    function stopGuidedTour() {
-      const bar = document.getElementById("guided-tour-bar");
-      if (bar) bar.style.display = "none";
-      clearTimeout(tourAutoTimer);
-    }
-
-    // ================= 📱 PHONE QR CODE MODAL =================
     function openQrModal() {
       const modal = document.getElementById("qr-modal");
       const currentUrl = window.location.href;
       document.getElementById("qr-url-display").innerText = currentUrl;
-      const qrImg = document.getElementById("qr-image");
-      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(currentUrl)}`;
+      document.getElementById("qr-image").src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(currentUrl)}`;
       modal.style.display = "flex";
     }
-
-    function closeQrModal() {
-      document.getElementById("qr-modal").style.display = "none";
-    }
-
+    function closeQrModal() { document.getElementById("qr-modal").style.display = "none"; }
     function copyQrUrl() {
       navigator.clipboard.writeText(window.location.href);
-      alert("Dashboard URL copied to clipboard!");
+      alert("URL copied to clipboard!");
     }
 
-  
-    // ================= UPGRADE 1: ROI MODAL LOGIC =================
-    function openRoiModal() {
-      document.getElementById("roi-modal").style.display = "flex";
-    }
-    function closeRoiModal() {
-      document.getElementById("roi-modal").style.display = "none";
-    }
-
-    // ================= UPGRADE 4: TELUM MODAL LOGIC =================
-    function openTelumModal() {
-      document.getElementById("telum-modal").style.display = "flex";
-    }
-    function closeTelumModal() {
-      document.getElementById("telum-modal").style.display = "none";
-    }
-
-    // ================= UPGRADE 2: ASK GRANITE AI COPILOT LOGIC =================
     let isCopilotOpen = false;
-
     function toggleCopilot() {
       isCopilotOpen = !isCopilotOpen;
       const drawer = document.getElementById("copilot-drawer");
       drawer.style.display = isCopilotOpen ? "flex" : "none";
       if (isCopilotOpen) {
         document.getElementById("copilot-input").focus();
-        scrollCopilotToBottom();
+        const b = document.getElementById("copilot-messages");
+        if (b) b.scrollTop = b.scrollHeight;
       }
-    }
-
-    function scrollCopilotToBottom() {
-      const b = document.getElementById("copilot-messages");
-      if (b) b.scrollTop = b.scrollHeight;
     }
 
     function sendQuickCopilot(text) {
@@ -3618,19 +2690,17 @@
       input.value = "";
       const body = document.getElementById("copilot-messages");
 
-      // Append user bubble
       const userDiv = document.createElement("div");
       userDiv.className = "copilot-msg user";
       userDiv.innerText = msg;
       body.appendChild(userDiv);
-      scrollCopilotToBottom();
+      body.scrollTop = body.scrollHeight;
 
-      // Show typing indicator
       const typingDiv = document.createElement("div");
       typingDiv.className = "copilot-msg bot";
       typingDiv.innerHTML = "<em>IBM Granite is formulating s390x synthesis...</em>";
       body.appendChild(typingDiv);
-      scrollCopilotToBottom();
+      body.scrollTop = body.scrollHeight;
 
       try {
         const res = await fetch('/api/copilot/chat', {
@@ -3639,111 +2709,79 @@
           body: JSON.stringify({ message: msg, order_id: 4471 })
         });
         const data = await res.json();
-
         typingDiv.innerHTML = `
           <div>${data.response}</div>
-          <div style="margin-top: 8px; font-size: 10.5px; font-family: var(--font-mono); color: var(--accent-cyan); display: flex; gap: 8px; flex-wrap: wrap;">
+          <div style="margin-top: 8px; font-size: 10.5px; font-family: var(--font-mono); color: var(--accent-cyan); display: flex; gap: 8px;">
             <span>⚡ ${data.model}</span>
             <span>⏱️ ${data.decision_latency_ms}ms</span>
           </div>
         `;
       } catch (e) {
-        // High-fidelity fallback
-        typingDiv.innerHTML = `
-          <div>IBM Granite (s390x): Transaction evaluated under Db2 CDC stream. Order #4471 risk is 87.0% (Critical). Reroute to Supplier B protects $1.7M with ACID commit.</div>
-          <div style="margin-top: 6px; font-size: 10.5px; color: var(--accent-cyan); font-family: var(--font-mono);">Fallback Engine: Local Granite Model</div>
-        `;
+        typingDiv.innerHTML = "<div>IBM Granite (s390x): Order #4471 is evaluated via Db2 CDC. Risk is 87.0% (Critical). Reroute to Supplier B protects $1.7M with ACID commit.</div>";
       }
-      scrollCopilotToBottom();
+      body.scrollTop = body.scrollHeight;
     }
 
-    // ================= UPGRADE 3: CLICK-TO-INSPECT & TABLE SEARCH =================
-    let streamFilterStatus = 'ALL';
-    let streamSearchQuery = '';
+    // ================= 🎬 GUIDED DEMO TOUR =================
+    let tourCurrentStep = 0;
+    const tourSteps = [
+      {
+        badge: "STEP 1 OF 5",
+        text: "Global Route Map: Ingesting live Db2 Change Data Capture transactions from IBM Z mainframe...",
+        action: () => { switchTab('operations'); }
+      },
+      {
+        badge: "STEP 2 OF 5",
+        text: "Mid-Atlantic Corridor Slip: Injecting Slide 8 high-value disruption on Order #4471 ($1.9M Value at Risk)...",
+        action: async () => { switchTab('operations'); await triggerSimulation(); }
+      },
+      {
+        badge: "STEP 3 OF 5",
+        text: "Incident Command Center: Reviewing Tree SHAP feature attribution & IBM Granite (s390x) rationale...",
+        action: () => { switchTab('incident'); }
+      },
+      {
+        badge: "STEP 4 OF 5",
+        text: "Executing Mitigation: Committing two-phase closed-loop reroute to Frankfurt via z/OS Connect REST API (RC=0)...",
+        action: async () => {
+          switchTab('incident');
+          await executeZosAction();
+          setTimeout(() => { switchTab('operations'); }, 1200);
+        }
+      },
+      {
+        badge: "STEP 5 OF 5",
+        text: "Executive Governance: Official Compliance Audit Dossier generated with SHA-256 seal & ACID verification!",
+        action: () => { switchTab('audit'); }
+      }
+    ];
 
-    function setStreamFilter(status) {
-      streamFilterStatus = status;
-      document.querySelectorAll('.table-pill').forEach(p => {
-        p.classList.remove('active');
-        if (p.innerText.toUpperCase() === status) p.classList.add('active');
-      });
-      renderFilteredStream();
+    function startGuidedTour() {
+      tourCurrentStep = 0;
+      document.getElementById("guided-tour-bar").style.display = "flex";
+      renderTourStep();
     }
 
-    function filterStreamTable() {
-      streamSearchQuery = document.getElementById("stream-search").value.toLowerCase();
-      renderFilteredStream();
+    function renderTourStep() {
+      const step = tourSteps[tourCurrentStep];
+      document.getElementById("tour-step-badge").innerText = step.badge;
+      document.getElementById("tour-step-text").innerText = step.text;
+      document.getElementById("tour-next-btn").innerText = (tourCurrentStep === tourSteps.length - 1) ? "Finish Tour ✓" : "Next Step ➔";
+      step.action();
     }
 
-    function renderFilteredStream() {
-      const tbody = document.getElementById("stream-body");
-      if (!tbody) return;
-
-      const filtered = streamList.filter(item => {
-        const matchesStatus = (streamFilterStatus === 'ALL') || (item.status === streamFilterStatus);
-        const matchesQuery = (!streamSearchQuery) || 
-          item.id.toLowerCase().includes(streamSearchQuery) ||
-          item.cat.toLowerCase().includes(streamSearchQuery) ||
-          item.dest.toLowerCase().includes(streamSearchQuery);
-        return matchesStatus && matchesQuery;
-      });
-
-      tbody.innerHTML = filtered.slice(0, 10).map(item => `
-        <tr onclick="inspectOrder('${item.id}', '${item.cat}', '${item.dest}', '${item.val}', '${item.risk}', '${item.status}')">
-          <td><strong style="color: #93c5fd;">${item.id}</strong></td>
-          <td>${item.cat}</td>
-          <td>${item.dest}</td>
-          <td><span style="font-size: 11px; color: var(--text-muted);">${item.mode || 'Standard'}</span></td>
-          <td><span class="badge badge-${item.status.toLowerCase()}">${item.status}</span></td>
-          <td>${item.val}</td>
-          <td style="color: ${item.status === 'CRITICAL' ? 'var(--accent-red)' : item.status === 'WARNING' ? 'var(--accent-orange)' : 'var(--accent-green)'}; font-weight: 700; font-family: var(--font-mono);">${item.risk}</td>
-        </tr>
-      `).join('');
+    function nextTourStep() {
+      if (tourCurrentStep < tourSteps.length - 1) {
+        tourCurrentStep++;
+        renderTourStep();
+      } else {
+        stopGuidedTour();
+      }
     }
 
-    // Replace previous renderStream with filtered stream
-    renderStream = renderFilteredStream;
-
-    let inspectMarker = null;
-
-    function inspectOrder(id, cat, dest, val, risk, status) {
-      // Coordinate lookup for popular destinations
-      const destCoords = {
-        'Germany': [51.1657, 10.4515],
-        'Japan': [36.2048, 138.2529],
-        'United Kingdom': [55.3781, -3.4360],
-        'USA': [37.0902, -95.7129],
-        'Australia': [-25.2744, 133.7751],
-        'Canada': [56.1304, -106.3468],
-        'Mexico': [23.6345, -102.5528],
-        'France': [48.8566, 2.3522]
-      };
-
-      const coords = destCoords[dest] || [48.8566, 2.3522];
-      
-      if (inspectMarker) map.removeLayer(inspectMarker);
-
-      const color = status === 'CRITICAL' ? '#ff3366' : status === 'WARNING' ? '#ff9100' : '#00d8ff';
-      inspectMarker = L.circleMarker(coords, {
-        radius: 8,
-        color: color,
-        fillColor: color,
-        fillOpacity: 0.9,
-        weight: 2
-      }).addTo(map);
-
-      inspectMarker.bindPopup(`
-        <div style="font-family: Outfit, sans-serif; min-width: 160px;">
-          <div style="color: ${color}; font-weight: 700; font-size: 12.5px;">${id} • ${status}</div>
-          <div style="color: #fff; font-size: 12px; font-weight: 600;">${cat}</div>
-          <div style="color: #94a3b8; font-size: 11px;">Destination: ${dest}</div>
-          <div style="color: var(--accent-cyan); font-weight: 700; font-size: 11.5px; margin-top: 3px;">Value: ${val} • Risk: ${risk}</div>
-        </div>
-      `).openPopup();
-
-      map.flyTo(coords, 3, { duration: 1.2 });
+    function stopGuidedTour() {
+      document.getElementById("guided-tour-bar").style.display = "none";
     }
-
   </script>
 </body>
 </html>

@@ -78,10 +78,28 @@ def test_audit_report_endpoint():
     assert data["mainframe_audit_trail"]["db2_return_code"] == "0000 (SUCCESS_COMMIT)"
     assert data["mainframe_audit_trail"]["security_hash"].startswith("SHA256:")
 
+def test_copilot_chat():
+    resp = client.post("/api/copilot/chat", json={"message": "Why was Supplier B chosen?", "order_id": 4471})
+    assert resp.status_code == 200
+    data = resp.json()
+    assert "response" in data
+    assert "model" in data
+    assert "references" in data
+    assert len(data["references"]) > 0
+
+def test_telum_metrics():
+    resp = client.get("/api/telum/metrics")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["inference_latency_ms"] < 5.0
+    assert "s390x" in data["platform_architecture"]
+
 if __name__ == "__main__":
     test_health_endpoint()
     test_analyze_endpoint_langgraph()
     test_simulate_disruption_endpoint()
     test_zos_connect_execute()
     test_audit_report_endpoint()
+    test_copilot_chat()
+    test_telum_metrics()
     print("ALL API & LANGGRAPH TESTS PASSED!")

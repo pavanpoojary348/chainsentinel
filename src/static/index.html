@@ -1985,7 +1985,10 @@
           <div style="font-size: 10.5px; color: var(--text-muted);">s390x Native • Telum Accelerated</div>
         </div>
       </div>
-      <button onclick="toggleCopilot()" style="background: none; border: none; color: #94a3b8; font-size: 18px; cursor: pointer;">✕</button>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <button id="copilot-key-btn" onclick="promptApiKey()" title="Optional Cloud LLM Key (Google Gemini)" style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); color: #93c5fd; font-size: 11px; padding: 3px 8px; border-radius: 6px; cursor: pointer;">🔑 Key</button>
+        <button onclick="toggleCopilot()" style="background: none; border: none; color: #94a3b8; font-size: 18px; cursor: pointer;">✕</button>
+      </div>
     </div>
 
     <div class="copilot-body" id="copilot-messages">
@@ -1994,8 +1997,11 @@
         <div class="copilot-chips">
           <span class="copilot-chip" onclick="sendQuickCopilot('Why was Supplier B (Frankfurt) chosen?')">Why Supplier B?</span>
           <span class="copilot-chip" onclick="sendQuickCopilot('Explain the $1.7M Value at Risk formula')">VaR Formula?</span>
-          <span class="copilot-chip" onclick="sendQuickCopilot('Verify RACF ZOSCONN authorization')">RACF Security?</span>
+          <span class="copilot-chip" onclick="sendQuickCopilot('What should I do? Guide me through the demo.')">What to Do?</span>
           <span class="copilot-chip" onclick="sendQuickCopilot('How does IBM Telum accelerate inference?')">Telum MMA?</span>
+          <span class="copilot-chip" onclick="sendQuickCopilot('Verify RACF ZOSCONN authorization')">RACF Security?</span>
+          <span class="copilot-chip" onclick="sendQuickCopilot('Explain the ML prediction models and SHAP')">ML & SHAP?</span>
+          <span class="copilot-chip" onclick="sendQuickCopilot('Compare ChainSentinel to status quo spreadsheet')">Status Quo vs ROI</span>
         </div>
       </div>
     </div>
@@ -2694,6 +2700,20 @@
       }
     }
 
+    function promptApiKey() {
+      const current = localStorage.getItem('chainsentinel_gemini_key') || '';
+      const key = prompt('Enter Google Gemini API Key for dynamic live cloud LLM reasoning (Optional):\n\nLeave blank to use the native IBM Granite 13B (s390x) knowledge engine.', current);
+      if (key !== null) {
+        if (key.trim()) {
+          localStorage.setItem('chainsentinel_gemini_key', key.trim());
+          alert('Custom Gemini API Key active! Granite Copilot will augment responses with live neural generation.');
+        } else {
+          localStorage.removeItem('chainsentinel_gemini_key');
+          alert('Reverted to native IBM Granite 13B (s390x) on-chip knowledge engine.');
+        }
+      }
+    }
+
     function sendQuickCopilot(text) {
       document.getElementById("copilot-input").value = text;
       sendCopilotMsg();
@@ -2720,17 +2740,26 @@
       body.scrollTop = body.scrollHeight;
 
       try {
+        const apiKey = localStorage.getItem('chainsentinel_gemini_key') || '';
         const res = await fetch('/api/copilot/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: msg, order_id: 4471 })
+          body: JSON.stringify({ message: msg, order_id: 4471, api_key: apiKey || undefined })
         });
         const data = await res.json();
+        const formattedResp = (data.response || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/\n/g, '<br>')
+          .replace(/•\s/g, '&bull; ');
+        
         typingDiv.innerHTML = `
-          <div>${data.response}</div>
-          <div style="margin-top: 8px; font-size: 10.5px; font-family: var(--font-mono); color: var(--accent-cyan); display: flex; gap: 8px;">
+          <div>${formattedResp}</div>
+          <div style="margin-top: 8px; font-size: 10.5px; font-family: var(--font-mono); color: var(--accent-cyan); display: flex; gap: 8px; flex-wrap: wrap;">
             <span>⚡ ${data.model}</span>
             <span>⏱️ ${data.decision_latency_ms}ms</span>
+            ${data.references ? `<span style="color: #94a3b8;">📚 ${data.references.join(', ')}</span>` : ''}
           </div>
         `;
       } catch (e) {

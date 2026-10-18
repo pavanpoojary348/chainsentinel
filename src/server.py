@@ -360,7 +360,7 @@ def generate_granite_copilot_response(query: str, order_id: int = 4471, api_key:
     elif re.search(r'\b(how to run|how to use|how do i use|walkthrough|guide|what should i do|what to do|wht to do|what do i do|where to start|what next|where do i start|how to start|guide me|how do i test|how to test|steps|next step|run demo|test)\b', q):
         ans = (
             "Here is the recommended 5-step walkthrough to test ChainSentinel:\n"
-            "1. Operations & Map Tab: Click '⚡ Simulate Slide 8' to inject the $1.9M Tier-1 Microcontroller disruption on Order #4471.\n"
+            "1. Operations & Map Tab: Click '[Simulate Slide 8]' to inject the $1.9M Tier-1 Microcontroller disruption on Order #4471.\n"
             "2. Active Incident Tab: Review the 87% late risk probability, financial exposure ($1.7M VaR), and Tree SHAP risk drivers.\n"
             "3. Rationale & Recommendation: Review the recommendation to shift 60% order volume to Supplier B (Frankfurt Hub).\n"
             "4. Mainframe Commit: Click 'Commit Mitigation via z/OS Connect API' to execute the ACID two-phase commit into Db2 for z/OS.\n"
@@ -500,7 +500,7 @@ def generate_granite_copilot_response(query: str, order_id: int = 4471, api_key:
     elif re.search(r'\b(joke|funny|laugh|humor|sentient|skynet|matrix|robot)\b', q):
         ans = (
             "Why did the supply chain manager cross the road? Because IBM Granite predicted a 36-hour delay on the primary sidewalk "
-            "and rerouted them through Frankfurt with a 35.4x ROI! 😄 I am fully operational and dedicated to zero-stockout supply chains."
+            "and rerouted them through Frankfurt with a 35.4x ROI! :) I am fully operational and dedicated to zero-stockout supply chains."
         )
         refs = ["IBM Granite Copilot", "Humor Protocol", "Zero-Stockout Guarantee"]
 

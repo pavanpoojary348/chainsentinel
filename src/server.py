@@ -259,10 +259,43 @@ class CopilotChatRequest(BaseModel):
     order_id: Optional[int] = 4471
     api_key: Optional[str] = None
 
+def normalize_copilot_query(text: str) -> str:
+    """Normalizes typos, common slang, phonetic misspellings, and repeated characters."""
+    import re
+    t = text.lower().strip()
+    # 1. Collapse 3+ repeated characters to at most 2 (e.g. helooo -> heloo, helllo -> hello)
+    t = re.sub(r'(.)\1{2,}', r'\1\1', t)
+    # 2. Common abbreviations, phonetics, and misspellings map
+    slang = {
+        'wat': 'what', 'wht': 'what', 'wats': 'whats', 'wts': 'whats', 'whut': 'what',
+        'y': 'why', 'wy': 'why', 'bcoz': 'because', 'cuz': 'because',
+        'shud': 'should', 'plz': 'please', 'pls': 'please', 'u': 'you', 'r': 'are',
+        'dis': 'this', 'dat': 'that', 'dem': 'them',
+        'suplier': 'supplier', 'supliers': 'suppliers', 'supllier': 'supplier', 'sopplier': 'supplier',
+        'telm': 'telum', 'rcaf': 'racf', 'secutiry': 'security', 'securty': 'security',
+        'modl': 'model', 'modls': 'models', 'algoritm': 'algorithm',
+        'disrutpion': 'disruption', 'disrupton': 'disruption', 'dela': 'delay',
+        'formla': 'formula', 'frmula': 'formula', 'schedul': 'schedule',
+        'manframe': 'mainframe', 'mainfram': 'mainframe', 'linxone': 'linuxone'
+    }
+    tokens = t.split()
+    tokens = [slang.get(tok, tok) for tok in tokens]
+    return ' '.join(tokens)
+
 def generate_granite_copilot_response(query: str, order_id: int = 4471, api_key: Optional[str] = None) -> Dict[str, Any]:
     import re
     import json
-    q = query.lower().strip()
+    import difflib
+
+    # Normalize spelling and extract tokens
+    q = normalize_copilot_query(query)
+    q_words = q.split()
+
+    def has_fuzzy(target_list, cutoff=0.72):
+        for w in q_words:
+            if difflib.get_close_matches(w, target_list, n=1, cutoff=cutoff):
+                return True
+        return False
 
     # 1. Cloud LLM dynamic augmentation if API key is provided via request or environment
     gemini_key = api_key or os.getenv("GEMINI_API_KEY")
@@ -305,8 +338,74 @@ def generate_granite_copilot_response(query: str, order_id: int = 4471, api_key:
         except Exception:
             pass  # Fall through to native high-fidelity s390x knowledge engine
 
-    # --- 2. Conversational Greetings & Casual Inquiries ---
-    if re.search(r'\b(hello|hi|hey|helloo|heyy|greetings|howdy|good\s*morning|good\s*afternoon|good\s*evening|yo|wassup|sup|how\s*are\s*you|how\s*r\s*u)\b', q):
+    # --- 2. Identity, Creators & Team ---
+    if re.search(r'\b(who are you|what is your name|what are you|who made you|creator|created you|authors|team|pingxero|datathon|hackathon)\b', q):
+        ans = (
+            "I am ChainSentinel's AI Copilot powered by IBM Granite (s390x Native), created by Team PingXero for the IBM Z Datathon 2026. "
+            "ChainSentinel is an enterprise predictive resilience platform that intercepts supply chain disruptions directly from Db2 change "
+            "data capture streams and commits closed-loop mitigations via z/OS Connect REST APIs in sub-second time (<12 ms)."
+        )
+        refs = ["Team PingXero", "IBM Z Datathon 2026", "LangGraph StateGraph Engine"]
+
+    # --- 3. How to Run / Guided Demo / What to Do ---
+    elif re.search(r'\b(how to run|how to use|how do i use|walkthrough|guide|what should i do|what to do|wht to do|wat to do|what do i do|where to start|what next|where do i start|how to start|guide me|how do i test|how to test|steps|next step|run demo|test)\b', q) or (has_fuzzy(['what', 'how']) and has_fuzzy(['do', 'run', 'start', 'test', 'guide'])) or has_fuzzy(['walkthrough', 'tutorial']):
+        ans = (
+            "Here is the recommended 5-step walkthrough to test ChainSentinel:\n"
+            "1. Operations & Map Tab: Click '[Simulate Slide 8]' to inject the $1.9M Tier-1 Microcontroller disruption on Order #4471.\n"
+            "2. Active Incident Tab: Review the 87% late risk probability, financial exposure ($1.7M VaR), and Tree SHAP risk drivers.\n"
+            "3. Rationale & Recommendation: Review the recommendation to shift 60% order volume to Supplier B (Frankfurt Hub).\n"
+            "4. Mainframe Commit: Click 'Commit Mitigation via z/OS Connect API' to execute the ACID two-phase commit into Db2 for z/OS.\n"
+            "5. Compliance Vault: Inspect the cryptographic SHA-256 audit dossier or click 'Export Official Dossier (PDF / Print)'."
+        )
+        refs = ["Interactive Demo Guide", "Slide 8 Walkthrough", "Operator Runbook"]
+
+    # --- 4. Why Supplier B / Mitigation Ranking ---
+    elif re.search(r'\b(why supplier b|supplier b|frankfurt|why not air|air freight|alternatives|recommendation|mitigation|warehouse)\b', q) or (has_fuzzy(['supplier', 'frankfurt', 'reroute', 'mitigation']) and (has_fuzzy(['why', 'choose', 'choice', 'b', 'air']) or 'b' in q_words)):
+        ans = (
+            "Supplier B (Frankfurt Regional Hub) was ranked #1 by our Recommendation Agent with an ROI of 35.4x. "
+            "It provides an immediate 60% buffer capacity under pre-negotiated SLA contract SLA-DE-9042 with pre-cleared European customs corridors. "
+            "Compared to First Class Air (+$65K) or warehouse stock buffer (+$12.5K with insufficient units), "
+            "shifting 60% volume to Supplier B costs +$48K and fully recovers delivery SLA on schedule."
+        )
+        refs = ["RecommendationAgent", "Frankfurt Hub Contract SLA-DE-9042", "ROI Optimization Model"]
+
+    # --- 5. Financial Exposure & VaR Formula ---
+    elif re.search(r'\b(var|value at risk|formula|exposure|money|cost|financial|loss|savings|roi|48k|1\.7m|1\.9m|calculation)\b', q) or has_fuzzy(['var', 'formula', 'exposure', 'savings', 'roi']):
+        ans = (
+            "Value at Risk (VaR) is computed as: VaR = Disruption Probability × Order Capital Exposure + Downstream Contract Breach Penalties. "
+            "For Order #4471: 87.0% × $1.90M = $1.653M + breach fees = $1.70M protected. "
+            "With an expedite cost of $48K, the net financial benefit is +$1,652,000.00, yielding a 35.4x return on mitigation investment."
+        )
+        refs = ["RiskAgent", "VaR Formula: P(Late) * Value", "Net Savings: $1,652,000"]
+
+    # --- 6. IBM Telum Hardware & MMA Acceleration ---
+    elif re.search(r'\b(telum|accelerator|hardware|mma|flpos|tflops|latency|matrix multiply|on-chip|pcie)\b', q) or has_fuzzy(['telum', 'accelerator', 'hardware', 'latency', 'matrix']):
+        ans = (
+            "IBM Telum on-chip AI acceleration enables neural network and gradient-boosted tree inference directly within the CPU core "
+            "via Matrix Multiply Assist (MMA). By eliminating off-chip PCIe data movement, decision latency drops to 1.14 ms at 6.4 TFLOPS throughput."
+        )
+        refs = ["IBM Telum On-Chip Accelerator", "z16 MMA Engine", "Sub-second Triage Guarantee"]
+
+    # --- 7. RACF Security & SAF Authorization ---
+    elif re.search(r'\b(racf|security|authorization|saf|auth|zosconn|csoper1|sysadm)\b', q) or has_fuzzy(['racf', 'security', 'authorization', 'zosconn']):
+        ans = (
+            "Mainframe security is enforced via IBM Resource Access Control Facility (RACF). All mitigation API requests require "
+            "APPL class 'ZOSCONN' authorization. User CSOPER1 holds verified SYSADM rights for Db2 Subsystem DB2P, "
+            "returning SAF return code 0000 (ACCESS PERMITTED) before any commit can occur."
+        )
+        refs = ["RACF Profile ZOSCONN", "User CSOPER1", "SAF Return Code 0000"]
+
+    # --- 8. Order Details & Active Disruption (Order #4471) ---
+    elif re.search(r'\b(order|4471|what happened|active incident|current disruption|incident summary|tier-1|microcontroller|new york|paris)\b', q) or has_fuzzy(['4471', 'disruption', 'incident']):
+        ans = (
+            "Order #4471 is an enterprise batch of 800 Tier-1 Server Microcontroller Modules ($1,900,000.00 total valuation) "
+            "shipped from New York to Paris under a 4-day SLA. Primary Supplier A experienced a 36-hour delay slip, exhausting all corridor "
+            "ground buffer. Our ML model scored late delivery probability at 87.0% (Critical Alert), placing $1,700,000.00 at immediate financial risk."
+        )
+        refs = ["Order #4471 Dossier", "Supplier A Slip Telemetry", "Db2 Subsystem DB2P"]
+
+    # --- 9. Conversational Greetings & Casual Inquiries (Tolerant of all typos: heloo, helo, heyy, etc.) ---
+    elif re.search(r'\b(h+[ae]+l+[lo]+|h+i+|h+e+y+|h+a+l+l+o+|g+r+e+t+i+n+g+s*|h+o+w+d+y+|y+o+|s+u+p+|w+a+s+u+p+|good\s*morning|good\s*afternoon|good\s*evening|how\s*are\s*you|how\s*r\s*u)\b', q):
         ans = (
             "Hello! I am your IBM Granite Supply Chain Copilot, running natively on IBM LinuxONE (s390x). "
             "I continuously monitor live Db2 for z/OS CDC streams and predict high-value disruptions in real time. "
@@ -315,7 +414,7 @@ def generate_granite_copilot_response(query: str, order_id: int = 4471, api_key:
         )
         refs = ["IBM Granite Copilot", "LinuxONE s390x", "Db2 for z/OS Live Stream"]
 
-    # --- 3. Gratitude & Pleasantries ---
+    # --- 10. Gratitude & Pleasantries ---
     elif re.search(r'\b(thank\s*you|thanks|thx|appreciate|great\s*job|awesome|cool|bye|goodbye|see\s*you)\b', q):
         ans = (
             "You are very welcome! ChainSentinel's multi-agent workflow remains continuously active on IBM LinuxONE, "
@@ -532,13 +631,26 @@ def generate_granite_copilot_response(query: str, order_id: int = 4471, api_key:
                 "the platform continuously evaluates thousands of concurrent shipments without impacting online transaction processing (OLTP) performance."
             )
         else:
-            ans = (
-                f"Regarding '{query}': In ChainSentinel's IBM LinuxONE environment, all supply chain events are continuously "
-                f"evaluated by our 4-agent LangGraph workflow. Order #{order_id} is currently under active monitoring via Db2 CDC with an "
-                "87.0% late delivery risk. You can test live What-If scenarios in the Sandbox tab, explore the global route map, "
-                "or review the cryptographic compliance dossier in the Audit Vault."
-            )
-        refs = ["IBM Granite Foundation Model", "LangGraph Multi-Agent Workflow", "Db2 for z/OS Subsystem DB2P"]
+            if len(clean_q.split()) <= 4 or not any(w in q for w in ["order", "incident", "disruption", "risk", "4471"]):
+                ans = (
+                    "Hello! I am your IBM Granite Supply Chain Copilot running natively on IBM LinuxONE (s390x). "
+                    "I am ready to help with any questions about ChainSentinel! Here are a few things you can ask me:\n"
+                    "• 'What to do?' for a guided 5-step walkthrough of the live demo\n"
+                    "• 'Why Supplier B?' to inspect the $1.7M savings and 35.4x ROI\n"
+                    "• 'VaR Formula?' for the $1.7M Value at Risk mathematical calculation\n"
+                    "• 'Telum MMA?' to learn how on-chip AI acceleration cuts latency to 1.14 ms\n"
+                    "• 'RACF Security?' to review mainframe authorization controls\n"
+                    "Or ask any question about machine learning, Db2 CDC, or What-If supply chain stress testing!"
+                )
+                refs = ["IBM Granite Copilot", "IBM LinuxONE s390x", "Conversational Assistant"]
+            else:
+                ans = (
+                    f"Regarding '{query}': In ChainSentinel's IBM LinuxONE environment, all supply chain events are continuously "
+                    f"evaluated by our 4-agent LangGraph workflow. Order #{order_id} is currently under active monitoring via Db2 CDC with an "
+                    "87.0% late delivery risk. You can test live What-If scenarios in the Sandbox tab, explore the global route map, "
+                    "or review the cryptographic compliance dossier in the Audit Vault."
+                )
+                refs = ["IBM Granite Foundation Model", "LangGraph Multi-Agent Workflow", "Db2 for z/OS Subsystem DB2P"]
 
     return {
         "response": ans,

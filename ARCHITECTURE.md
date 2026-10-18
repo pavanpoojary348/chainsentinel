@@ -2,6 +2,8 @@
 > **IBM Z Datathon 2026 | Team PingXero**  
 > *AI-Powered Closed-Loop Supply-Chain Resilience on IBM LinuxONE (s390x) & IBM Db2 for z/OS*
 
+![ChainSentinel Architecture Diagram](./architecture_diagram.jpg)
+
 ---
 
 ## 1. High-Level System Architecture

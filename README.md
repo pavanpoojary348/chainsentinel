@@ -72,6 +72,8 @@ For evaluators running within the IBM LinuxONE Cloud VM (`148.100.109.180`):
 
 ## 🏗️ Enterprise Architecture on IBM Z
 
+![ChainSentinel Enterprise Architecture](./architecture_diagram.jpg)
+
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                       IBM Z & LinuxONE Architecture                         │
